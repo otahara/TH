@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_login"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:background="@color/colorPrimaryDark"
+    tools:context="talkhub.com.br.th.LoginActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="0dp"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/textView2"
+            style="@style/textView_style"
+            android:textAllCaps="true"
+            android:layout_margin="5dp"
+            android:textSize="25dp"
+            android:textColor="@color/colorPrimary"
+            android:text="TalkHub" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/editText_style"
+            android:hint="E-mail"
+            android:inputType="textEmailAddress" />
+
+        <EditText
+            android:id="@+id/etSenha"
+            style="@style/editText_style"
+            android:hint="Senha"
+            android:inputType="textPassword" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/button_style"
+            android:text="Log in" />
+
+        <TextView
+            android:id="@+id/tvCadastro"
+            style="@style/textView_style"
+            android:text="Cadastre-se Aqui!"
+            android:textAllCaps="false"
+            android:textColor="#cccccc" />
+    </LinearLayout>
+</RelativeLayout>
