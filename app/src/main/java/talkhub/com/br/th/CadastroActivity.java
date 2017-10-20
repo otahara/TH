@@ -26,9 +26,9 @@ public class CadastroActivity extends AppCompatActivity {
     private EditText mConfirmarSenha;
     private Button mCadastrar;
     private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
 
 
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cadastro);
@@ -42,6 +42,15 @@ public class CadastroActivity extends AppCompatActivity {
         mCadastrar = (Button) findViewById(R.id.btnCadastrar);
 
         mAuth = FirebaseAuth.getInstance();
+        mAuth.signOut();
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if(firebaseAuth.getCurrentUser() != null)
+                startActivity(new Intent(CadastroActivity.this, MainActivity.class));
+            }
+        };
 
 
         mCadastrar.setOnClickListener(new View.OnClickListener() {
@@ -80,13 +89,15 @@ public class CadastroActivity extends AppCompatActivity {
 
                 if (!task.isSuccessful()) {
                     Toast.makeText(CadastroActivity.this, "Algo deu errado", Toast.LENGTH_SHORT).show();
-                } else {
-
-                    startActivity(new Intent(CadastroActivity.this, MainActivity.class));
-
                 }
 
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
     }
 }
