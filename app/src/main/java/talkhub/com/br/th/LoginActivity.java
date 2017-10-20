@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -25,59 +26,34 @@ public class LoginActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    public void cadastrar() {
-        tvCadastro = (TextView)findViewById(R.id.tvCadastro);
-        tvCadastro.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(LoginActivity.this, CadastroActivity.class);
-                        startActivity(intent);
+
+    public void logar(String email, String senha) {
+
+        if (TextUtils.isEmpty(email) || TextUtils.isEmpty(senha)) {
+
+            Toast.makeText(this, "Algum campo ficou em branco", Toast.LENGTH_SHORT).show();
+        } else {
+
+
+            mAuth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (!task.isSuccessful()) {
+                        Toast.makeText(LoginActivity.this, "Algo deu errado", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
                     }
                 }
-        );
-    }
-
-    public void logar() {
-        btnLogin = (Button) findViewById(R.id.btnLogin);
-        btnLogin.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
+            });
 
 
-
-
-
-                        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        startActivity(intent);
-                    }
-                }
-        );
-    }
-
-
-
-    public void logar(String email, String senha){
-    //Verifica se algum campo ficou em branco
-    if(TextUtils.isEmpty(email) || TextUtils.isEmpty(senha)){
-
-        Toast.makeText(this, "Algum campo ficou em branco", Toast.LENGTH_SHORT).show();
-    } else {
-
-
-        mAuth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-            @Override
-            public void onComplete(@NonNull Task<AuthResult> task) {
-                startActivity(new Intent(LoginActivity.this, MainActivity.class));
-            }
-        });
+        }
 
 
     }
 
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,10 +62,29 @@ public class LoginActivity extends AppCompatActivity {
 
         mEmail = (EditText) findViewById(R.id.etEmail);
         mSenha = (EditText) findViewById(R.id.etSenha);
+        btnLogin = (Button) findViewById(R.id.btnLogin);
+        tvCadastro = (TextView) findViewById(R.id.tvCadastro);
         mAuth = FirebaseAuth.getInstance();
 
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = mEmail.getText().toString();
+                String senha = mSenha.getText().toString();
 
-        logar();
-        cadastrar();
+                logar(email, senha);
+            }
+        });
+
+        tvCadastro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(LoginActivity.this, CadastroActivity.class));
+
+            }
+        });
+
+
     }
 }
