@@ -15,6 +15,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import talkhub.com.br.th.Entities.Usuario;
 
 public class CadastroActivity extends AppCompatActivity {
 
@@ -27,6 +31,7 @@ public class CadastroActivity extends AppCompatActivity {
     private Button mCadastrar;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private DatabaseReference mRef;
 
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +45,7 @@ public class CadastroActivity extends AppCompatActivity {
         mSenha = (EditText) findViewById(R.id.etSenha);
         mConfirmarSenha = (EditText) findViewById(R.id.etConfirmaSenha);
         mCadastrar = (Button) findViewById(R.id.btnCadastrar);
+        mRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
 
         mAuth = FirebaseAuth.getInstance();
         mAuth.signOut();
@@ -81,7 +87,7 @@ public class CadastroActivity extends AppCompatActivity {
 
     }
 
-    public void cadastrar(String nome, String sobreNome, String email, String companhia, String senha) {
+    public void cadastrar(final  String  nome, final String sobreNome, final String email, final String companhia, final String senha) {
 
         mAuth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -89,6 +95,12 @@ public class CadastroActivity extends AppCompatActivity {
 
                 if (!task.isSuccessful()) {
                     Toast.makeText(CadastroActivity.this, "Algo deu errado", Toast.LENGTH_SHORT).show();
+                } else{
+                    String nomeReferenciaUsuario = nome.toLowerCase() + sobreNome.toUpperCase().charAt(0) + "-"+companhia.toUpperCase();
+                    String keyUsuario =  mRef.push().getKey();
+
+                    Usuario usuario = new Usuario(email, nome, sobreNome,nomeReferenciaUsuario, keyUsuario);
+                    mRef.child(keyUsuario).setValue(usuario);
                 }
 
             }
