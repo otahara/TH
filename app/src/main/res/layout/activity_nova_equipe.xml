@@ -28,5 +28,11 @@
         android:layout_marginTop="10dp"
         android:inputType="text"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bt_salvar_equipe"
+        android:text="Salvar Equipe"/>
+
 
 </LinearLayout>
