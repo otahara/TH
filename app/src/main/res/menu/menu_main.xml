@@ -8,10 +8,7 @@
         android:orderInCategory="100"
         app:showAsAction="never"/>
 
-    <item android:title="@string/action_criar_projeto"
-        android:id="@+id/menuCriarProjeto"
-        android:orderInCategory="100"
-        app:showAsAction="never"/>
+
 
     <item android:title="@string/action_sair"
           android:id="@+id/menuSair"

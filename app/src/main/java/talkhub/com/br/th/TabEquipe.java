@@ -88,7 +88,6 @@ public class TabEquipe extends Fragment {
             @Override
             public void onClick(View view) {
 
-                startActivity(new Intent(view.getContext(), NovaEquipeActivity.class));
             }
         });
         return view;
