@@ -21,10 +21,10 @@ public class PagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                Equipe equipe = new Equipe();
+                TabEquipe equipe = new TabEquipe();
                 return equipe;
             case 1:
-                Projeto projeto = new Projeto();
+                TabProjeto projeto = new TabProjeto();
                 return projeto;
             default:
                 return null;

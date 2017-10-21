@@ -18,10 +18,7 @@ public class Equipe {
 
 
 
-    public Equipe(String nome, String descricao,
-                  String usuarioCriador,
-                  List<String> administradores,
-                  List<String> membros) {
+    public Equipe(String nome, String descricao, String usuarioCriador,  List<String> administradores, List<String> membros) {
         this.nome = nome;
         this.descricao = descricao;
         this.usuarioCriador = usuarioCriador;

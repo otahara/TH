@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".MainActivity" />
-        <activity android:name=".CadastroActivity"></activity>
+        <activity android:name=".CadastroActivity" />
+        <activity android:name=".NovaEquipeActivity"></activity>
     </application>
 
 </manifest>
