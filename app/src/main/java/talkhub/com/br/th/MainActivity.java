@@ -13,10 +13,11 @@ import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 
-import static android.R.attr.id;
+import talkhub.com.br.th.Adapter.PagerAdapter;
+import talkhub.com.br.th.Fragment.TabEquipe;
+import talkhub.com.br.th.Fragment.TabProjeto;
 
 public class MainActivity extends AppCompatActivity implements TabEquipe.OnFragmentInteractionListener, TabProjeto.OnFragmentInteractionListener {
-
 
     private FirebaseAuth mAuth;
 

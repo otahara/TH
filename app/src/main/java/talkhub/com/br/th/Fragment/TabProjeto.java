@@ -1,31 +1,25 @@
-package talkhub.com.br.th;
+package talkhub.com.br.th.Fragment;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+
+import talkhub.com.br.th.R;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link TabEquipe.OnFragmentInteractionListener} interface
+ * {@link TabProjeto.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link TabEquipe#newInstance} factory method to
+ * Use the {@link TabProjeto#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabEquipe extends Fragment {
-
-    //Botão para criar equipe
-    private Button mNovaEquipe;
-
-
-
+public class TabProjeto extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -35,11 +29,9 @@ public class TabEquipe extends Fragment {
     private String mParam1;
     private String mParam2;
 
-
-
     private OnFragmentInteractionListener mListener;
 
-    public TabEquipe() {
+    public TabProjeto() {
         // Required empty public constructor
     }
 
@@ -49,11 +41,11 @@ public class TabEquipe extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment TabEquipe.
+     * @return A new instance of fragment TabProjeto.
      */
-    // TODO: Rename and change types and number of parameter
-    public static TabEquipe newInstance(String param1, String param2) {
-        TabEquipe fragment = new TabEquipe();
+    // TODO: Rename and change types and number of parameters
+    public static TabProjeto newInstance(String param1, String param2) {
+        TabProjeto fragment = new TabProjeto();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -68,23 +60,13 @@ public class TabEquipe extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-        //Inicialiazando o botão com o objeto no XML
-
-
-
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        View view  = inflater.inflate(R.layout.fragment_equipe, container, false);
-
-        return view;
+        return inflater.inflate(R.layout.fragment_projeto, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

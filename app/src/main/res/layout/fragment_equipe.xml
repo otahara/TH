@@ -2,9 +2,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TabEquipe">
+    tools:context=".Fragment.TabEquipe">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycleEquipes"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>

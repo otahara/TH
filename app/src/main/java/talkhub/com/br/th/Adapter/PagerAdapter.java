@@ -1,8 +1,11 @@
-package talkhub.com.br.th;
+package talkhub.com.br.th.Adapter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+
+import talkhub.com.br.th.Fragment.TabEquipe;
+import talkhub.com.br.th.Fragment.TabProjeto;
 
 /**
  * Created by TalkHub on 19/10/2017.
