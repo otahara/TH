@@ -83,13 +83,7 @@ public class TabEquipe extends Fragment {
         // Inflate the layout for this fragment
 
         View view  = inflater.inflate(R.layout.fragment_equipe, container, false);
-        mNovaEquipe = (Button) view.findViewById(R.id.btnCriarEquipe);
-        mNovaEquipe.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
         return view;
     }
 

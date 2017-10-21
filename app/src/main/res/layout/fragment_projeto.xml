@@ -5,11 +5,6 @@
     tools:context=".TabProjeto">
 
     <!-- TODO: Update blank fragment layout -->
-    <Button
-        style="@style/button_style"
-        android:id="@+id/btnCriarProjeto"
-        android:text="Criar Projeto"
-        android:layout_centerInParent="true"
-        android:textSize="30dp"/>
+
 
 </RelativeLayout>
