@@ -8,30 +8,29 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="talkhub.com.br.th.NovaEquipeActivity">
+    tools:context="talkhub.com.br.th.NovaEquipeActivity"
+    android:background="@color/bgcolor">
 
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+
         android:hint="nome da equipe"
         android:id="@+id/et_nome_equipe"
-        android:textSize="22sp"
+        style="@style/editText_style"
         android:inputType="text"/>
 
     <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="descrição da equipe"
         android:id="@+id/et_desc_equipe"
-        android:textSize="18sp"
-        android:layout_marginTop="10dp"
-        android:inputType="text"/>
+        style="@style/editText_style"
+        android:layout_height="200dp"
+        android:hint="descrição da equipe"
+        android:inputType="textMultiLine"
+        android:textAlignment="inherit" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        style="@style/button_style"
         android:id="@+id/bt_salvar_equipe"
+        android:layout_height="50dp"
         android:text="Salvar Equipe"/>
 
 

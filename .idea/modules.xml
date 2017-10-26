@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TH.iml" filepath="$PROJECT_DIR$/TH.iml" />
-      <module fileurl="file://$PROJECT_DIR$/TH-FINAL.iml" filepath="$PROJECT_DIR$/TH-FINAL.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\gabri\AndroidStudioProjects\THFINAL\TH.iml" filepath="C:\Users\gabri\AndroidStudioProjects\THFINAL\TH.iml" />
+      <module fileurl="file://C:\Users\gabri\AndroidStudioProjects\THFINAL\TH-FINAL.iml" filepath="C:\Users\gabri\AndroidStudioProjects\THFINAL\TH-FINAL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/THFINAL.iml" filepath="$PROJECT_DIR$/THFINAL.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
