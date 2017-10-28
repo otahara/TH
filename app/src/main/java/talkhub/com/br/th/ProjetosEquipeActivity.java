@@ -2,6 +2,7 @@ package talkhub.com.br.th;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
 import android.widget.Toolbar;
 
 public class ProjetosEquipeActivity extends AppCompatActivity {
@@ -15,5 +16,13 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
         setSupportActionBar(tbProjetos);
 
         tbProjetos.inflateMenu(R.menu.menu_equipe);
+
+
+
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_equipe, menu);
+        return true;
     }
 }
