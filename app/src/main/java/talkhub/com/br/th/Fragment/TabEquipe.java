@@ -1,16 +1,31 @@
 package talkhub.com.br.th.Fragment;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 import talkhub.com.br.th.Adapter.EquipeListAdapter;
+import talkhub.com.br.th.Entities.Usuario;
 import talkhub.com.br.th.R;
 
 
@@ -29,6 +44,12 @@ public class TabEquipe extends Fragment {
     //Botão para criar equipe
     private Button mNovaEquipe;
 
+    //
+    private DatabaseReference mRefUsuario;
+    private FirebaseAuth mAuth;
+    private String emailUsuarioLogado;
+    private List<HashMap<String, String>> equipes = new ArrayList<HashMap<String, String>>();
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -38,7 +59,6 @@ public class TabEquipe extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-
 
 
     private OnFragmentInteractionListener mListener;
@@ -73,8 +93,9 @@ public class TabEquipe extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        //Inicialiazando o botão com o objeto no XML
-
+        mAuth = FirebaseAuth.getInstance();
+        mRefUsuario = FirebaseDatabase.getInstance().getReference();
+        emailUsuarioLogado = mAuth.getCurrentUser().getEmail().toString();
     }
 
     @Override
@@ -82,13 +103,38 @@ public class TabEquipe extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
-        View view  = inflater.inflate(R.layout.fragment_equipe, container, false);
-        //obtem a recyclerview
-        this.mViewHolder.recyclerEquipes = (RecyclerView) view.findViewById(R.id.recycleEquipes);
-        //define adapter
-        EquipeListAdapter equipeListAdapter = new EquipeListAdapter();
-        this.mViewHolder.recyclerEquipes.setAdapter(equipeListAdapter);
-        
+        View view = inflater.inflate(R.layout.fragment_equipe, container, false);
+        RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleEquipes);
+
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+
+        recyclerView.setLayoutManager(layoutManager);
+
+        Query query = mRefUsuario.child("usuarios").orderByChild("email").equalTo(emailUsuarioLogado);
+
+        final EquipeListAdapter equipeListAdapter = new EquipeListAdapter(equipes,getContext());
+
+        recyclerView.setAdapter(equipeListAdapter);
+
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot item: dataSnapshot.getChildren()){
+                    for (DataSnapshot equipeItem: item.child("equipes").getChildren()){
+                        HashMap<String, String> equipe = new HashMap<String, String>();
+                        equipe.put(equipeItem.getKey(),equipeItem.getValue().toString());
+                        equipes.add(equipe);
+                        equipeListAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
         return view;
     }
 
@@ -131,7 +177,7 @@ public class TabEquipe extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    public static class ViewHolder{
+    public static class ViewHolder {
         RecyclerView recyclerEquipes;
     }
 }

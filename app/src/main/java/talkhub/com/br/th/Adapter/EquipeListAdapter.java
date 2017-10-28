@@ -6,6 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.HashMap;
+import java.util.List;
+
 import talkhub.com.br.th.R;
 import talkhub.com.br.th.ViewHolder.EquipeViewHolder;
 
@@ -13,23 +16,35 @@ import talkhub.com.br.th.ViewHolder.EquipeViewHolder;
  * Created by gabri on 21/10/2017.
  */
 
-public class EquipeListAdapter extends RecyclerView.Adapter<EquipeViewHolder> {
-    @Override
-    public EquipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
+public class EquipeListAdapter extends RecyclerView.Adapter {
+    private List<HashMap<String, String>> equipes;
+    private Context context;
 
-        View equipeView = inflater.inflate(R.layout.row_equipe_list, parent, false);
-        return new EquipeViewHolder(equipeView);
+    public EquipeListAdapter(List<HashMap<String, String>> equipes, Context context) {
+        this.equipes = equipes;
+        this.context = context;
     }
 
     @Override
-    public void onBindViewHolder(EquipeViewHolder holder, int position) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.row_equipe_list, parent, false);
 
+        EquipeViewHolder equipeViewHolder = new EquipeViewHolder(view);
+
+        return equipeViewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        EquipeViewHolder equipeViewHolder = (EquipeViewHolder) holder;
+
+        HashMap<String, String> equipe = equipes.get(position);
+
+        equipeViewHolder.mNomeEquipe.setText(equipe.values().toString());
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return equipes.size();
     }
 }

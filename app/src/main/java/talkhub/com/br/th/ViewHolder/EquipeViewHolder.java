@@ -12,10 +12,10 @@ import talkhub.com.br.th.R;
 
 public class EquipeViewHolder extends RecyclerView.ViewHolder {
 
-    private TextView mTextView;
+    final public TextView mNomeEquipe;
 
     public EquipeViewHolder(View itemView) {
         super(itemView);
-        this.mTextView = (TextView) itemView.findViewById(R.id.text_model);
+        mNomeEquipe = (TextView)itemView.findViewById(R.id.tv_nome_equipe);
     }
 }
