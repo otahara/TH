@@ -38,4 +38,14 @@
         <item name="actionMenuTextColor">@color/colorAccent</item>
     </style>
 
+    <style name="menuDaMain" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">#000</item>
+        <item name="android:textColorSecondary">@color/menu</item>
+    </style>
+
+    <style name="popUpMenuDaMain" parent="Theme.AppCompat">
+        <item name="android:textColorPrimary">#000</item>
+        <item name="android:background">@color/menu</item>
+    </style>
+
 </resources>

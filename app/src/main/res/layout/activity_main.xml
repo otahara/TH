@@ -14,7 +14,10 @@
     android:id="@+id/toolbar"
     android:background="@color/colorPrimaryDark"
     android:minHeight="?attr/actionBarSize"
-    app:titleTextColor="@color/colorAccent" />
+    app:titleTextColor="@color/colorAccent"
+    android:theme="@style/menuDaMain"
+    app:popupTheme="@style/popUpMenuDaMain"
+    />
 
 <android.support.design.widget.TabLayout
     android:layout_width="match_parent"
@@ -24,8 +27,7 @@
     android:minHeight="?attr/actionBarSize"
     app:tabTextColor="@color/colorAccent"
     app:tabSelectedTextColor="@color/colorPrimary"
-    app:tabIndicatorColor="#FFFFFF"
-    >
+    app:tabIndicatorColor="#FFFFFF">
 
 </android.support.design.widget.TabLayout>
 

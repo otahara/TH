@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".CadastroActivity" />
-        <activity android:name=".NovaEquipeActivity"></activity>
+        <activity android:name=".NovaEquipeActivity" />
+        <activity android:name=".ProjetosEquipeActivity"></activity>
     </application>
 
 </manifest>

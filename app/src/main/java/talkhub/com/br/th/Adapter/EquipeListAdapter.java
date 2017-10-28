@@ -1,6 +1,7 @@
 package talkhub.com.br.th.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.HashMap;
 import java.util.List;
 
+import talkhub.com.br.th.ProjetosEquipeActivity;
 import talkhub.com.br.th.R;
 import talkhub.com.br.th.ViewHolder.EquipeViewHolder;
 
@@ -31,6 +33,14 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
 
         EquipeViewHolder equipeViewHolder = new EquipeViewHolder(view);
 
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProjetosEquipeActivity.class);
+                context.startActivity(intent);
+            }
+        });
+
         return equipeViewHolder;
     }
 
@@ -40,7 +50,7 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
 
         HashMap<String, String> equipe = equipes.get(position);
 
-        equipeViewHolder.mNomeEquipe.setText(equipe.values().toString());
+        equipeViewHolder.mNomeEquipe.setText(equipe.values().toString().replaceAll("\\p{P}",""));
     }
 
     @Override
