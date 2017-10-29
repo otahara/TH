@@ -1,7 +1,12 @@
 package talkhub.com.br.th.Entities;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -10,21 +15,32 @@ import java.util.List;
  */
 public class Projeto {
 
+    private String id;
     private String nome;
     private String descricao;
     private String usuarioCriador;
     private List<String> administradores;
     private List<String> membros;
 
-    public Projeto(String nome, String descricao,
-                   String usuarioCriador,
-                   List<String> administradores,
-                   List<String> membros) {
+    public Projeto() {
+    }
+
+    public Projeto(String id, String nome, String descricao, String usuarioCriador,
+                   List<String> administradores, List<String> membros) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.usuarioCriador = usuarioCriador;
         this.administradores = administradores;
-        this.membros  = membros;
+        this.membros = membros;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
     }
 
     public String getNome() {
@@ -67,21 +83,52 @@ public class Projeto {
         this.membros = membros;
     }
 
-    public void novoProjeto(String idUsuarioLogado, String idEquipe){
-        DatabaseReference mRefProjeto = FirebaseDatabase.getInstance().getReference().child("projetos");
-        DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
-        DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes");
+    public void novoProjeto(final String idEquipe){
+        final DatabaseReference mRefProjeto = FirebaseDatabase.getInstance().getReference().child("projetos");
+        final DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
+        final DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes");
+        //Para pegar dados do usuário logado
+        FirebaseAuth  mAuth = FirebaseAuth.getInstance();
+        String emailUsuarioLogado = mAuth.getCurrentUser().getEmail().toString();
+        Query query = mRefUsuario.orderByChild("email").equalTo(emailUsuarioLogado);
+
+        //É necessária a criação dessas strings para que o nome do projeto possa ser usado dentro da
+        //async task na query
+        final String nomeProjeto = this.nome;
+        final String descProjeto = this.descricao;
 
 
-        //Cria um id para o projeto
-        String idProjeto = mRefProjeto.push().getKey();
-        mRefProjeto.child(idProjeto).setValue(this);
+        //Busca o id do usuário logado e então embeda a nova equipe no usuário e também em equipes
+        query.addListenerForSingleValueEvent(new ValueEventListener( ){
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot item : dataSnapshot.getChildren()){
+                    String idUsuarioLogado = item.getKey();
+                    //Cria um id para o projeto
+                    String idProjeto = mRefProjeto.push().getKey();
 
-        //Embeda no usuário logado, o id e o nome do novo projeto
-        mRefUsuario.child(idUsuarioLogado).child("projetos").child(idProjeto).setValue(this.nome);
+                    //Embeda no usuário logado, o id e o nome do novo projeto
+                    mRefUsuario.child(idUsuarioLogado).child("projetos").child(idProjeto).setValue(nomeProjeto);
 
-        //Embeda na equipe o id e o nome do novo projeto
-        mRefEquipe.child(idEquipe).child("projetos").child(idProjeto).setValue(this.nome);
+                    //Embeda na equipe o id e o nome do novo projeto
+                    mRefEquipe.child(idEquipe).child("projetos").child(idProjeto).child("nome")
+                            .setValue(nomeProjeto);
+                    mRefEquipe.child(idEquipe).child("projetos").child(idProjeto).child("descricao")
+                            .setValue(descProjeto);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+
+
+
+
+
 
 
 

@@ -107,15 +107,17 @@ public class TabEquipe extends Fragment {
         View view = inflater.inflate(R.layout.fragment_equipe, container, false);
         RecyclerView recyclerView = (RecyclerView) view.findViewById(R.id.recycleEquipes);
 
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext(),
+                LinearLayoutManager.VERTICAL, false);
 
         recyclerView.setLayoutManager(layoutManager);
 
-        Query query = mRefUsuario.child("usuarios").orderByChild("email").equalTo(emailUsuarioLogado);
 
-        final EquipeListAdapter equipeListAdapter = new EquipeListAdapter(equipes,getContext());
 
+         final EquipeListAdapter equipeListAdapter = new EquipeListAdapter(equipes,getContext());
         recyclerView.setAdapter(equipeListAdapter);
+
+        Query query = mRefUsuario.child("usuarios").orderByChild("email").equalTo(emailUsuarioLogado);
 
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

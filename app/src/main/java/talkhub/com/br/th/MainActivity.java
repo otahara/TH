@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity implements TabEquipe.OnFragm
         final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount());
         viewPager.setAdapter(adapter);
         viewPager.setOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
-
         tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -88,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements TabEquipe.OnFragm
 
             }
         });
+
     }
 
     @Override
