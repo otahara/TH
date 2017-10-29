@@ -10,20 +10,29 @@ import java.util.List;
  */
 public class Equipe {
 
+    private String id;
     private String nome;
     private String descricao;
     private String usuarioCriador;
     private List<String> administradores;
     private List<String> membros;
 
+    public Equipe() {
+    }
 
-
-    public Equipe(String nome, String descricao, String usuarioCriador,  List<String> administradores, List<String> membros) {
+    public Equipe(String id, String nome, String descricao,
+                  String usuarioCriador, List<String> administradores, List<String> membros) {
+        this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.usuarioCriador = usuarioCriador;
         this.administradores = administradores;
         this.membros = membros;
+    }
+
+
+    public String getId() {
+        return id;
     }
 
     public String getNome() {
@@ -46,6 +55,18 @@ public class Equipe {
         return membros;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     public void novaEquipe(String idUsuarioLogado){
 
         DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes");
@@ -58,7 +79,8 @@ public class Equipe {
 
         //Embeda no documento "usuario" o id e o nome da equipe
 
-        mRefUsuario.child(idUsuarioLogado).child("equipes").child(keyEquipe).setValue(this.nome);
+        mRefUsuario.child(idUsuarioLogado).child("equipes").child(keyEquipe).child("nome").setValue(this.nome);
+        mRefUsuario.child(idUsuarioLogado).child("equipes").child(keyEquipe).child("descricao").setValue(this.descricao);
 
 
 

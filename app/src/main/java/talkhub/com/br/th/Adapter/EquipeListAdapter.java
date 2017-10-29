@@ -6,10 +6,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
 
+import talkhub.com.br.th.Entities.Equipe;
 import talkhub.com.br.th.ProjetosEquipeActivity;
 import talkhub.com.br.th.R;
 import talkhub.com.br.th.ViewHolder.EquipeViewHolder;
@@ -19,10 +21,14 @@ import talkhub.com.br.th.ViewHolder.EquipeViewHolder;
  */
 
 public class EquipeListAdapter extends RecyclerView.Adapter {
-    private List<HashMap<String, String>> equipes;
+//    private List<HashMap<String, String>> equipes;
+    private  List<Equipe> equipes;
     private Context context;
 
-    public EquipeListAdapter(List<HashMap<String, String>> equipes, Context context) {
+    //Esta string deve ser usada quando precisar do id da Equipe que da view
+    private String idEquipe;
+
+    public EquipeListAdapter(List<Equipe> equipes, Context context) {
         this.equipes = equipes;
         this.context = context;
     }
@@ -31,7 +37,7 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.row_equipe_list, parent, false);
 
-        EquipeViewHolder equipeViewHolder = new EquipeViewHolder(view);
+        final EquipeViewHolder equipeViewHolder = new EquipeViewHolder(view);
 
         view.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,9 +54,12 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         EquipeViewHolder equipeViewHolder = (EquipeViewHolder) holder;
 
-        HashMap<String, String> equipe = equipes.get(position);
-
-        equipeViewHolder.mNomeEquipe.setText(equipe.values().toString().replaceAll("\\p{P}",""));
+//        HashMap<String, String> equipe = equipes.get(position);
+        Equipe equipe = equipes.get(position);
+//        equipeViewHolder.mNomeEquipe.setText(equipe.values().toString().replaceAll("\\p{P}",""));
+        equipeViewHolder.mNomeEquipe.setText(equipe.getNome());
+        equipeViewHolder.mDescEquipe.setText(equipe.getDescricao());
+        idEquipe = equipe.getId();
     }
 
     @Override

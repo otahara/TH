@@ -25,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import talkhub.com.br.th.Adapter.EquipeListAdapter;
+import talkhub.com.br.th.Entities.Equipe;
 import talkhub.com.br.th.Entities.Usuario;
 import talkhub.com.br.th.R;
 
@@ -48,8 +49,8 @@ public class TabEquipe extends Fragment {
     private DatabaseReference mRefUsuario;
     private FirebaseAuth mAuth;
     private String emailUsuarioLogado;
-    private List<HashMap<String, String>> equipes = new ArrayList<HashMap<String, String>>();
-
+//    private List<HashMap<String, String>> equipes = new ArrayList<HashMap<String, String>>();
+    private List<Equipe> equipes = new ArrayList<Equipe>();
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -121,9 +122,14 @@ public class TabEquipe extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot item: dataSnapshot.getChildren()){
                     for (DataSnapshot equipeItem: item.child("equipes").getChildren()){
-                        HashMap<String, String> equipe = new HashMap<String, String>();
-                        equipe.put(equipeItem.getKey(),equipeItem.getValue().toString());
+//                        HashMap<String, String> equipe = new HashMap<String, String>();
+                        Equipe equipe = new Equipe();
+                        equipe.setId(equipeItem.getKey());
+                        equipe.setNome(equipeItem.child("nome").getValue().toString());
+                        equipe.setDescricao(equipeItem.child("descricao").getValue().toString());
                         equipes.add(equipe);
+
+//                        equipe.put(equipeItem.getKey(),equipeItem.getValue().toString());
                         equipeListAdapter.notifyDataSetChanged();
                     }
                 }
