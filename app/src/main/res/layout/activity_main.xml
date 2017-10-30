@@ -14,7 +14,7 @@
     android:id="@+id/toolbar"
     android:background="@color/colorPrimaryDark"
     android:minHeight="?attr/actionBarSize"
-    app:titleTextColor="@color/colorAccent"
+    app:titleTextColor="@color/menu"
     android:theme="@style/menuDaMain"
     app:popupTheme="@style/popUpMenuDaMain"
     />
