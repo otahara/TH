@@ -31,7 +31,8 @@
             android:layout_height="wrap_content"
             android:text="Descricao"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:padding="5dp"/>
 
     </LinearLayout>
 
