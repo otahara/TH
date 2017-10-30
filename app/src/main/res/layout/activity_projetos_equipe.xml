@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragment.TabEquipe"
+    tools:context=".ProjetosEquipeActivity"
     android:background="@color/bgcolor"
     android:orientation="vertical">
 
@@ -12,12 +12,8 @@
         android:layout_height="wrap_content"
         android:id="@+id/tb_projetos"
         android:background="@color/colorPrimaryDark"
-        android:minHeight="?attr/actionBarSize" />
-
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Lista de Projetos dessa Equipe" />
+        android:minHeight="?attr/actionBarSize"
+        android:visibility="visible"/>
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycleProjetos"

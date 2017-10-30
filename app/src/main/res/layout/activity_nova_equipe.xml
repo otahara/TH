@@ -12,6 +12,14 @@
     android:background="@color/bgcolor">
 
 
+    <TextView
+        style="@style/textView_style"
+        android:textAllCaps="true"
+        android:layout_margin="5dp"
+        android:textSize="25dp"
+        android:textColor="@color/colorPrimaryDark"
+        android:text="Nova Equipe" />
+
     <EditText
 
         android:hint="nome da equipe"
@@ -22,7 +30,7 @@
     <EditText
         android:id="@+id/et_desc_equipe"
         style="@style/editText_style"
-        android:layout_height="200dp"
+        android:layout_height="180dp"
         android:hint="descrição da equipe"
         android:inputType="textMultiLine"
         android:textAlignment="inherit" />
