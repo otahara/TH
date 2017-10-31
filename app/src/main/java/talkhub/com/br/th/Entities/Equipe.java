@@ -89,8 +89,10 @@ public class Equipe {
     public void novoMembro(String idEquipe, String idUsuario, Boolean administrador){
 
 
-        DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child(idEquipe).child("membros");
-        DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child(idUsuario).child("equipes");
+        DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference()
+                .child(idEquipe).child("membros");
+        DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference()
+                .child(idUsuario).child("equipes");
 
         //Embeda no documento "usuario" o id e o nome da equipe
         mRefUsuario.child(idUsuario).child("equipes").child(idEquipe).setValue(this.nome);

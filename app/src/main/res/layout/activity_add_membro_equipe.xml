@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bgcolor"
+    tools:context="talkhub.com.br.th.AddMembroEquipeActivity">
+
+
+    <EditText
+        style="@style/editText_style"
+        android:hint="Insira um termo para pesquisa"
+        android:id="@+id/et_pesquisa"
+        android:inputType="text"/>
+
+    <Button
+        style="@style/button_style"
+        android:text="Procurar"
+        android:id="@+id/bt_pesquisar"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_pesquisa_usuarios">
+
+    </android.support.v7.widget.RecyclerView>
+
+</LinearLayout>

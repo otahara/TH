@@ -52,10 +52,17 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
                 switch (item.getItemId()){
 
                     case R.id.menuCriarProjeto:
-                        Intent intent = new Intent(ProjetosEquipeActivity.this, NovoProjetoActivity.class);
-                        intent.putExtra("idEquipe", idEquipe);
-                        startActivity(intent);
+                        Intent intentCriarProjeto = new Intent(ProjetosEquipeActivity.this, NovoProjetoActivity.class);
+                        intentCriarProjeto.putExtra("idEquipe", idEquipe);
+                        startActivity(intentCriarProjeto);
                         return true;
+
+                    case R.id.menuAdicionarMembros:
+                        Intent intentAddMembros = new Intent(ProjetosEquipeActivity.this, AddMembroEquipeActivity.class);
+                        intentAddMembros.putExtra("idEquipe", idEquipe);
+                        startActivity(intentAddMembros);
+                        return true;
+
 
                     default:
                         return false;

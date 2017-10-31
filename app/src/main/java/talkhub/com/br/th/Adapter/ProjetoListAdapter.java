@@ -16,7 +16,7 @@ import talkhub.com.br.th.ViewHolder.ProjetoViewHolder;
  * Created by ferna on 28/10/2017.
  */
 
-public class ProjetoListAdapter extends RecyclerView.Adapter {
+public class  ProjetoListAdapter extends RecyclerView.Adapter {
 
     private List<Projeto> projetos;
     private Context context;

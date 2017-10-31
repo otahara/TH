@@ -22,7 +22,8 @@
         <activity android:name=".CadastroActivity" />
         <activity android:name=".NovaEquipeActivity" />
         <activity android:name=".ProjetosEquipeActivity" />
-        <activity android:name=".NovoProjetoActivity"></activity>
+        <activity android:name=".NovoProjetoActivity" />
+        <activity android:name=".AddMembroEquipeActivity"></activity>
     </application>
 
 </manifest>

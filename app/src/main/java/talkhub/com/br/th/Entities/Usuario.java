@@ -15,14 +15,15 @@ public class Usuario {
     private String sobrenome;
     private String nomeReferenciaUsuario;
    //Utilizado quando é necessário saber o ID de um usuário
-    private String keyUsuario;
+
+    public Usuario() {
+    }
 
     public Usuario(String email, String nome, String sobrenome, String nomeReferenciaUsuario, String keyUsuario) {
         this.email = email;
         this.nome = nome;
         this.sobrenome = sobrenome;
         this.nomeReferenciaUsuario = nomeReferenciaUsuario;
-        this.keyUsuario = keyUsuario;
     }
 
     private DatabaseReference mRef;
@@ -47,9 +48,6 @@ public class Usuario {
         return sobrenome;
     }
 
-    public String getKeyUsuario() {
-        return keyUsuario;
-    }
 
     public void setEmail(String email) {
         this.email = email;
