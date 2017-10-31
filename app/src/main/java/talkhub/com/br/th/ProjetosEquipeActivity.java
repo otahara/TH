@@ -41,8 +41,6 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle !=null)
             idEquipe = bundle.getString("idEquipe");
-        else
-            Toast.makeText(ProjetosEquipeActivity.this, "Algo errado aqui", Toast.LENGTH_SHORT).show();
 
         tbProjetos.inflateMenu(R.menu.menu_equipe);
 

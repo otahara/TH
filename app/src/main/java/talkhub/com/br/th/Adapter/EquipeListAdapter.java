@@ -40,14 +40,9 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
 
         final EquipeViewHolder equipeViewHolder = new EquipeViewHolder(view);
 
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ProjetosEquipeActivity.class);
-                intent.putExtra("idEquipe", idEquipe);
-                context.startActivity(intent);
-            }
-        });
+
+
+
 
         return equipeViewHolder;
     }
@@ -56,12 +51,22 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         EquipeViewHolder equipeViewHolder = (EquipeViewHolder) holder;
 
+
 //        HashMap<String, String> equipe = equipes.get(position);
         Equipe equipe = equipes.get(position);
 //        equipeViewHolder.mNomeEquipe.setText(equipe.values().toString().replaceAll("\\p{P}",""));
         equipeViewHolder.mNomeEquipe.setText(equipe.getNome());
         equipeViewHolder.mDescEquipe.setText(equipe.getDescricao());
-        idEquipe = equipe.getId();
+        holder.itemView.setTag(equipe.getId());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context, ProjetosEquipeActivity.class);
+                intent.putExtra("idEquipe", view.getTag().toString());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

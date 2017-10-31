@@ -2,13 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://C:\Users\gabri\AndroidStudioProjects\THFINAL\TH.iml" filepath="C:\Users\gabri\AndroidStudioProjects\THFINAL\TH.iml" />
-      <module fileurl="file://C:\Users\gabri\AndroidStudioProjects\THFINAL\TH-FINAL.iml" filepath="C:\Users\gabri\AndroidStudioProjects\THFINAL\TH-FINAL.iml" />
-      <module fileurl="file://C:\Users\gabri\AndroidStudioProjects\THFINAL\TH-Final3-0.iml" filepath="C:\Users\gabri\AndroidStudioProjects\THFINAL\TH-Final3-0.iml" />
-      <module fileurl="file://$PROJECT_DIR$/THFINAL.iml" filepath="$PROJECT_DIR$/THFINAL.iml" />
-      <module fileurl="file://C:\Users\ferna\OneDrive\Faculdade\TCC\TH\TH-Final3-0\THFINAL.iml" filepath="C:\Users\ferna\OneDrive\Faculdade\TCC\TH\TH-Final3-0\THFINAL.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TH-talkhub.iml" filepath="$PROJECT_DIR$/TH-talkhub.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://C:\Users\ferna\OneDrive\Faculdade\TCC\TH\TH-Final3-0\app\app.iml" filepath="C:\Users\ferna\OneDrive\Faculdade\TCC\TH\TH-Final3-0\app\app.iml" />
     </modules>
   </component>
 </project>
