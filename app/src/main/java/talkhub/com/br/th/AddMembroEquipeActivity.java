@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,11 +25,18 @@ import talkhub.com.br.th.Entities.Usuario;
 public class AddMembroEquipeActivity extends AppCompatActivity {
 
     private String idEquipe;
+    private String nomeEquipe;
+    private String descEquipe;
     private DatabaseReference mRefUsuario;
+    private FirebaseAuth mAuth;
     private EditText mTextoPesquisa;
     private Button mPesquisar;
     //Texto que o usuário digitou no campo
     private String stringPesquisa;
+
+    //Infos do usuário que está logado
+    String emailUsuarioLogado;
+    String idUsuarioLogado;
 
     //Lista que guarda os usuários recebidos da pesquisa
     private List<Usuario> usuarios = new ArrayList<Usuario>();
@@ -40,6 +48,9 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         idEquipe = bundle.getString("idEquipe");
+        nomeEquipe = bundle.getString("nomeEquipe");
+        descEquipe = bundle.getString("descEquipe");
+
 
         mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
 
@@ -52,7 +63,8 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        final UsuarioListAdapter usuarioListAdapter = new UsuarioListAdapter(usuarios, this);
+        final UsuarioListAdapter usuarioListAdapter = new UsuarioListAdapter(usuarios, this,
+                idEquipe, nomeEquipe, descEquipe);
         recyclerView.setAdapter(usuarioListAdapter);
 
 

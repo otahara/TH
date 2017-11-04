@@ -22,11 +22,9 @@ import talkhub.com.br.th.ViewHolder.EquipeViewHolder;
  */
 
 public class EquipeListAdapter extends RecyclerView.Adapter {
-//    private List<HashMap<String, String>> equipes;
     private  List<Equipe> equipes;
     private Context context;
 
-    //Esta string deve ser usada quando precisar do id da Equipe que da view
     private String idEquipe;
 
     public EquipeListAdapter(List<Equipe> equipes, Context context) {
@@ -52,9 +50,7 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
         EquipeViewHolder equipeViewHolder = (EquipeViewHolder) holder;
 
 
-//        HashMap<String, String> equipe = equipes.get(position);
-        Equipe equipe = equipes.get(position);
-//        equipeViewHolder.mNomeEquipe.setText(equipe.values().toString().replaceAll("\\p{P}",""));
+        final Equipe equipe = equipes.get(position);
         equipeViewHolder.mNomeEquipe.setText(equipe.getNome());
         equipeViewHolder.mDescEquipe.setText(equipe.getDescricao());
         holder.itemView.setTag(equipe.getId());
@@ -64,6 +60,8 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 Intent intent = new Intent(context, ProjetosEquipeActivity.class);
                 intent.putExtra("idEquipe", view.getTag().toString());
+                intent.putExtra("nomeEquipe", equipe.getNome());
+                intent.putExtra("descEquipe", equipe.getDescricao());
                 context.startActivity(intent);
             }
         });

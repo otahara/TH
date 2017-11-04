@@ -86,17 +86,20 @@ public class Equipe {
 
     }
 
-    public void novoMembro(String idEquipe, String idUsuario, Boolean administrador){
+    public void novoMembro(String idEquipe, String nomeEquipe, String descEquipe,
+                           String emailUsuario, String idUsuario ){
 
 
-        DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference()
-                .child(idEquipe).child("membros");
-        DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference()
-                .child(idUsuario).child("equipes");
+        DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes")
+                .child(idEquipe).child("membros").child(idUsuario);
+        mRefEquipe.setValue(emailUsuario);
 
-        //Embeda no documento "usuario" o id e o nome da equipe
-        mRefUsuario.child(idUsuario).child("equipes").child(idEquipe).setValue(this.nome);
-        
+//        Embeda no documento "usuario" o id e o nome da equipe
+        DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios")
+                .child(idUsuario).child("equipes").child(idEquipe);
+
+        mRefUsuario.setValue(nomeEquipe, descEquipe);
+
 
 
 

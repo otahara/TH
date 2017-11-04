@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/TH-talkhub.iml" filepath="$PROJECT_DIR$/TH-talkhub.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TH-sabado.iml" filepath="$PROJECT_DIR$/TH-sabado.iml" />
+      <module fileurl="file://C:\Users\ferna\OneDrive\Faculdade\TCC\TH-sabado\TH-talkhub.iml" filepath="C:\Users\ferna\OneDrive\Faculdade\TCC\TH-sabado\TH-talkhub.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://C:\Users\ferna\OneDrive\Faculdade\TCC\TH-sabado\app\app.iml" filepath="C:\Users\ferna\OneDrive\Faculdade\TCC\TH-sabado\app\app.iml" />
     </modules>
   </component>
 </project>

@@ -29,6 +29,8 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
 
     private DatabaseReference mRefProjetos;
     private String idEquipe;
+    private String nomeEquipe;
+    private String descEquipe;
     private List<Projeto> projetos = new ArrayList<Projeto>();
 
     @Override
@@ -41,6 +43,8 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if(bundle !=null)
             idEquipe = bundle.getString("idEquipe");
+            nomeEquipe = bundle.getString("nomeEquipe");
+            descEquipe = bundle.getString("desEquipe");
 
         tbProjetos.inflateMenu(R.menu.menu_equipe);
 
@@ -60,6 +64,8 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
                     case R.id.menuAdicionarMembros:
                         Intent intentAddMembros = new Intent(ProjetosEquipeActivity.this, AddMembroEquipeActivity.class);
                         intentAddMembros.putExtra("idEquipe", idEquipe);
+                        intentAddMembros.putExtra("nomeEquipe", nomeEquipe);
+                        intentAddMembros.putExtra("descEquipe", descEquipe);
                         startActivity(intentAddMembros);
                         return true;
 

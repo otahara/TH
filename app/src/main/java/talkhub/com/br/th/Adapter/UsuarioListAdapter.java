@@ -13,6 +13,7 @@ import android.widget.Toast;
 import java.util.List;
 
 import talkhub.com.br.th.AddMembroEquipeActivity;
+import talkhub.com.br.th.Entities.Equipe;
 import talkhub.com.br.th.Entities.Usuario;
 import talkhub.com.br.th.ProjetosEquipeActivity;
 import talkhub.com.br.th.R;
@@ -26,10 +27,17 @@ public class UsuarioListAdapter extends RecyclerView.Adapter {
 
     private List<Usuario> usuarios;
     private Context context;
+    private String idEquipe;
+    private String nomeEquipe;
+    private String descEquipe;
 
-    public UsuarioListAdapter(List<Usuario> usuarios, Context context) {
+    public UsuarioListAdapter(List<Usuario> usuarios, Context context,
+                              String idEquipe, String nomeEquipe, String descEquipe) {
         this.usuarios = usuarios;
         this.context = context;
+        this.idEquipe = idEquipe;
+        this.nomeEquipe = nomeEquipe;
+        this.descEquipe = descEquipe;
     }
 
 
@@ -50,7 +58,7 @@ public class UsuarioListAdapter extends RecyclerView.Adapter {
 
         UsuarioViewHolder usuarioViewHolder = (UsuarioViewHolder) holder;
 
-        Usuario usuario = usuarios.get(position);
+        final Usuario usuario = usuarios.get(position);
         usuarioViewHolder.mNomeUsuario.setText(usuario.getNome());
         usuarioViewHolder.mSobrenomeUsuario.setText(usuario.getSobrenome());
         usuarioViewHolder.mEmailUsuario.setText(usuario.getEmail());
@@ -68,24 +76,9 @@ public class UsuarioListAdapter extends RecyclerView.Adapter {
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+                                Equipe equipe = new Equipe();
+                                equipe.novoMembro(idEquipe, nomeEquipe, descEquipe, usuario.getEmail(), usuario.getId());
 
-                                AlertDialog.Builder builderAdm= new AlertDialog.Builder(context);
-                                builderAdm.setTitle("Membro Administrador")
-                                        .setMessage("Deseja adicionar este membro como Administrador")
-                                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Toast.makeText(context, "Deu certo", Toast.LENGTH_SHORT).show();
-
-                                            }
-                                        })
-                                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                                            @Override
-                                            public void onClick(DialogInterface dialog, int which) {
-                                                Toast.makeText(context, "Não Adm", Toast.LENGTH_SHORT).show();
-
-                                            }
-                                        });
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
