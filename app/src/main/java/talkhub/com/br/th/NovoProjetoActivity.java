@@ -3,6 +3,7 @@ package talkhub.com.br.th;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -28,7 +29,9 @@ public class NovoProjetoActivity extends AppCompatActivity {
         mDescProjeto = (EditText) findViewById(R.id.et_desc_projeto);
         mSalvarProjeto = (Button) findViewById(R.id.bt_salvar_projeto);
 
-
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         mSalvarProjeto.setOnClickListener(new View.OnClickListener() {
             @Override

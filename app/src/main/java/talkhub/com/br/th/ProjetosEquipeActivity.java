@@ -1,6 +1,7 @@
 package talkhub.com.br.th;
 
 import android.content.Intent;
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -38,14 +39,18 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_projetos_equipe);
         android.support.v7.widget.Toolbar tbProjetos = (android.support.v7.widget.Toolbar) findViewById(R.id.tb_projetos);
-        tbProjetos.setTitle("NOME DA EQUIPE");
-        setSupportActionBar(tbProjetos);
         Bundle bundle = getIntent().getExtras();
-        if(bundle !=null)
+        if(bundle !=null) {
             idEquipe = bundle.getString("idEquipe");
             nomeEquipe = bundle.getString("nomeEquipe");
             descEquipe = bundle.getString("desEquipe");
+        }
+        tbProjetos.setTitle(nomeEquipe + " - Projetos");
 
+        setSupportActionBar(tbProjetos);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
         tbProjetos.inflateMenu(R.menu.menu_equipe);
 
 
@@ -75,9 +80,6 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
 
 
                 }
-
-
-
 
             }
         });

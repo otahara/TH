@@ -8,6 +8,16 @@
     android:background="@color/bgcolor"
     tools:context="talkhub.com.br.th.AddMembroEquipeActivity">
 
+    <android.support.v7.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tb_addMembrosEquipe"
+        android:background="@color/colorPrimaryDark"
+        android:minHeight="?attr/actionBarSize"
+        android:visibility="visible"
+        app:titleTextColor="@color/menu"
+        android:theme="@style/menuDaMain"
+        app:popupTheme="@style/popUpMenuDaMain"/>
 
     <EditText
         style="@style/editText_style"

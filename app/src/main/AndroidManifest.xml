@@ -21,9 +21,21 @@
         <activity android:name=".MainActivity" />
         <activity android:name=".CadastroActivity" />
         <activity android:name=".NovaEquipeActivity" />
-        <activity android:name=".ProjetosEquipeActivity" />
+        <activity
+            android:name=".ProjetosEquipeActivity"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name=".NovoProjetoActivity" />
-        <activity android:name=".AddMembroEquipeActivity"></activity>
+        <activity
+            android:name=".AddMembroEquipeActivity"
+            android:parentActivityName=".ProjetosEquipeActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProjetosEquipeActivity" />
+        </activity>
     </application>
 
 </manifest>

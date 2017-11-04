@@ -1,9 +1,12 @@
 package talkhub.com.br.th;
 
+import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -45,17 +48,29 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_membro_equipe);
+        android.support.v7.widget.Toolbar tbAddMembrosEquipe = (android.support.v7.widget.Toolbar) findViewById(R.id.tb_addMembrosEquipe);
 
         Bundle bundle = getIntent().getExtras();
-        idEquipe = bundle.getString("idEquipe");
-        nomeEquipe = bundle.getString("nomeEquipe");
-        descEquipe = bundle.getString("descEquipe");
 
+        if(bundle !=null) {
+            idEquipe = bundle.getString("idEquipe");
+            nomeEquipe = bundle.getString("nomeEquipe");
+            descEquipe = bundle.getString("desEquipe");
+        }
+
+        tbAddMembrosEquipe.setTitle("Adicionar Membros - " + nomeEquipe );
 
         mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
 
         mTextoPesquisa = (EditText) findViewById(R.id.et_pesquisa);
         mPesquisar = (Button) findViewById(R.id.bt_pesquisar);
+
+        setSupportActionBar(tbAddMembrosEquipe);
+
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_pesquisa_usuarios);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this,
@@ -66,9 +81,6 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
         final UsuarioListAdapter usuarioListAdapter = new UsuarioListAdapter(usuarios, this,
                 idEquipe, nomeEquipe, descEquipe);
         recyclerView.setAdapter(usuarioListAdapter);
-
-
-
 
         mPesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -98,16 +110,11 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
+
+
                 });
             }
+
         });
-
-
-
-
-
-
-
-
     }
 }
