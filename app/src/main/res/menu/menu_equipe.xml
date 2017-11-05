@@ -13,4 +13,14 @@
         android:orderInCategory="100"
         app:showAsAction="never"/>
 
+    <item android:title="Informações"
+        android:id="@+id/menuInformacoesEquipe"
+        android:orderInCategory="100"
+        app:showAsAction="never"/>
+
+
+
+
+
+
 </menu>

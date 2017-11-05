@@ -74,6 +74,12 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
                         startActivity(intentAddMembros);
                         return true;
 
+                    case R.id.menuInformacoesEquipe:
+                        Intent intentInfoEquipe = new Intent(ProjetosEquipeActivity.this, InfoEquipeActivity.class);
+                        intentInfoEquipe.putExtra("idEquipe", idEquipe);
+                        startActivity(intentInfoEquipe);
+                        return true;
+
 
                     default:
                         return false;
