@@ -14,7 +14,8 @@ public class Usuario {
     private String nome;
     private String sobrenome;
     private String nomeReferenciaUsuario;
-   //Utilizado quando é necessário saber o ID de um usuário
+    //Esta propriedade é usada para preencher listas quando se quer informar se o usuário é administrador ou não
+    private Boolean administrador;
 
     public Usuario() {
     }
@@ -63,6 +64,14 @@ public class Usuario {
 
     public String getNomeReferenciaUsuario() {
         return nomeReferenciaUsuario;
+    }
+
+    public Boolean getAdministrador() {
+        return administrador;
+    }
+
+    public void setAdministrador(Boolean administrador) {
+        this.administrador = administrador;
     }
 
     public void setNomeReferenciaUsuario(String companhia) {

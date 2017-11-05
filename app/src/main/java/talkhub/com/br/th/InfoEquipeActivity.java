@@ -50,12 +50,8 @@ public class InfoEquipeActivity extends AppCompatActivity {
         membroListAdapter = new MembroListAdapter(usuarioMembros, this,
                 idEquipe);
 
+        //Procuta os membros comuns da equipe
         Query query = mRef.child("equipes").child(idEquipe).child("membros");
-
-//        mRefMembros = FirebaseDatabase.getInstance().getReference().child("equipes")
-//                .child(idEquipe).child("membros");
-
-
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -65,16 +61,17 @@ public class InfoEquipeActivity extends AppCompatActivity {
                     query.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(DataSnapshot dataSnapshot) {
-                                Usuario usuario = new Usuario();
-                                usuario.setId(dataSnapshot.getKey().toString());
-                                usuario.setNome(dataSnapshot.child("nome").getValue().toString());
-                                usuario.setSobrenome(dataSnapshot.child("sobrenome").getValue().toString());
-                                usuario.setEmail(dataSnapshot.child("email").getValue().toString());
-                                usuario.setNomeReferenciaUsuario(dataSnapshot.child("nomeReferenciaUsuario").getValue().toString());
-                                usuarioMembros.add(usuario);
-                                membroListAdapter.notifyDataSetChanged();
-                                Log.d("log", "cheguei " + usuario.getNome());
-                            }
+                            Usuario usuario = new Usuario();
+                            usuario.setId(dataSnapshot.getKey().toString());
+                            usuario.setNome(dataSnapshot.child("nome").getValue().toString());
+                            usuario.setSobrenome(dataSnapshot.child("sobrenome").getValue().toString());
+                            usuario.setEmail(dataSnapshot.child("email").getValue().toString());
+                            usuario.setNomeReferenciaUsuario(dataSnapshot.child("nomeReferenciaUsuario").getValue().toString());
+                            usuario.setAdministrador(false);
+                            usuarioMembros.add(usuario);
+                            membroListAdapter.notifyDataSetChanged();
+                            Log.d("log", "cheguei " + usuario.getNome());
+                        }
 
 
                         @Override
@@ -92,6 +89,44 @@ public class InfoEquipeActivity extends AppCompatActivity {
             }
         });
 
+        //Procura os administradores da Equipe
+        Query queryAdministradores  = mRef.child("equipes").child(idEquipe).child("administradores");
+        queryAdministradores.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot item : dataSnapshot.getChildren()){
+
+                    Query query = mRef.child("usuarios").child(item.getKey());
+                    query.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            Usuario usuario = new Usuario();
+                            usuario.setId(dataSnapshot.getKey().toString());
+                            usuario.setNome(dataSnapshot.child("nome").getValue().toString());
+                            usuario.setSobrenome(dataSnapshot.child("sobrenome").getValue().toString());
+                            usuario.setEmail(dataSnapshot.child("email").getValue().toString());
+                            usuario.setNomeReferenciaUsuario(dataSnapshot.child("nomeReferenciaUsuario").getValue().toString());
+                            usuario.setAdministrador(true);
+                            usuarioMembros.add(usuario);
+                            membroListAdapter.notifyDataSetChanged();
+                            Log.d("log", "cheguei " + usuario.getNome());
+                        }
+
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
 

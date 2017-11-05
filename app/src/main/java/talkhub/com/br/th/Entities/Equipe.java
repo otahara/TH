@@ -100,8 +100,19 @@ public class Equipe {
 
         mRefUsuario.setValue(nomeEquipe, descEquipe);
 
+    }
 
+    public void darPrivilegioAdm(String idEquipe, String idUsuario, String emailUsuario){
 
+        DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes")
+                .child(idEquipe).child("administradores").child(idUsuario);
+
+        mRefEquipe.setValue(emailUsuario);
+
+        mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes").child(idEquipe).child("membros")
+                .child(idUsuario);
+
+        mRefEquipe.removeValue();
 
 
 

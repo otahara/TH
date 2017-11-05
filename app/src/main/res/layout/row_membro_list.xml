@@ -50,6 +50,15 @@
             android:text="nome referencia"
             android:textSize="18sp"/>
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_administrador"
+            android:text="Administrador"
+            android:gravity="end"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="18sp"/>
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

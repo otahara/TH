@@ -18,6 +18,7 @@ public class MembroViewHolder extends RecyclerView.ViewHolder {
     final public TextView mSobreNomeMembro;
     final public TextView mEmailMembro;
     final public TextView mNomeReferenciaMembro;
+    final public TextView mAdministrador;
 
 
     public MembroViewHolder(View itemView) {
@@ -27,6 +28,9 @@ public class MembroViewHolder extends RecyclerView.ViewHolder {
         mSobreNomeMembro = (TextView) itemView.findViewById(R.id.tv_sobrenome_membro);
         mEmailMembro =  (TextView) itemView.findViewById(R.id.tv_email_membro);
         mNomeReferenciaMembro =  (TextView) itemView.findViewById(R.id.tv_nomeReferencia_membro);
+        mAdministrador = (TextView) itemView.findViewById(R.id.tv_administrador);
+
+        mAdministrador.setVisibility(View.INVISIBLE);
 
 
 
