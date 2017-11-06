@@ -1,15 +1,18 @@
 package talkhub.com.br.th;
 
+import android.content.Intent;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -45,6 +48,21 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
     private List<Usuario> usuarios = new ArrayList<Usuario>();
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Log.d("backbutton", "cheguei");
+                Intent intent = new Intent(AddMembroEquipeActivity.this, ProjetosEquipeActivity.class);
+                intent.putExtra("idEquipe", idEquipe);
+                startActivity(intent);
+                break;
+        }
+                return true;
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_membro_equipe);
@@ -52,13 +70,13 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
 
-        if(bundle !=null) {
+        if (bundle != null) {
             idEquipe = bundle.getString("idEquipe");
             nomeEquipe = bundle.getString("nomeEquipe");
             descEquipe = bundle.getString("desEquipe");
         }
 
-        tbAddMembrosEquipe.setTitle("Adicionar Membros - " + nomeEquipe );
+        tbAddMembrosEquipe.setTitle("Adicionar Membros - " + nomeEquipe);
 
         mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
 
@@ -67,7 +85,7 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
 
         setSupportActionBar(tbAddMembrosEquipe);
 
-        if(getSupportActionBar() != null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setHomeButtonEnabled(true);
         }
@@ -93,15 +111,58 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        for(DataSnapshot item : dataSnapshot.getChildren()){
-                            Usuario usuario = new Usuario();
+                        for (DataSnapshot item : dataSnapshot.getChildren()) {
+                            final Usuario usuario = new Usuario();
                             usuario.setId(item.getKey());
                             usuario.setEmail(item.child("email").getValue().toString());
                             usuario.setNome(item.child("nome").getValue().toString());
                             usuario.setNomeReferenciaUsuario(item.child("nomeReferenciaUsuario").getValue().toString());
                             usuario.setSobrenome(item.child("sobrenome").getValue().toString());
-                            usuarios.add(usuario);
-                            usuarioListAdapter.notifyDataSetChanged();
+
+                            //O Bloco Abaixo é usado para verificar se o usuário já não é um membro comum
+                            usuario.setUsuarioJaMembro(false);
+                            DatabaseReference mRefVerificaMembroUsuario = FirebaseDatabase.getInstance().getReference()
+                                    .child(idEquipe).child("membros");
+                            mRefVerificaMembroUsuario.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for(DataSnapshot item : dataSnapshot.getChildren()){
+                                        if(usuario.getId() == item.getKey())
+                                            usuario.setUsuarioJaMembro(true);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+                            //Caso o usuarío não tenha sido identificado do membro, ele irá para esta outra verificação abaixo
+                            if(!usuario.getUsuarioJaMembro()) {
+                                //O Bloco Abaixo é usado para verificar se o usuário já não é um membro administrador
+                                mRefVerificaMembroUsuario = FirebaseDatabase.getInstance().getReference()
+                                        .child(idEquipe).child("administradores");
+                                mRefVerificaMembroUsuario.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for(DataSnapshot item : dataSnapshot.getChildren()){
+                                            if(usuario.getId() == item.getKey())
+                                                usuario.setUsuarioJaMembro(true);
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+
+                                    }
+                                });
+                                //De acordo com as verificações feitas, o usuário será mostrado na recyclerview ou não
+                                if(!usuario.getUsuarioJaMembro()) {
+                                    usuarios.add(usuario);
+                                    usuarioListAdapter.notifyDataSetChanged();
+                                }
+                            }
 
                         }
                     }
@@ -118,3 +179,5 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
         });
     }
 }
+
+

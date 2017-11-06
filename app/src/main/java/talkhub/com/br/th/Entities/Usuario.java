@@ -16,6 +16,9 @@ public class Usuario {
     private String nomeReferenciaUsuario;
     //Esta propriedade é usada para preencher listas quando se quer informar se o usuário é administrador ou não
     private Boolean administrador;
+    //Esta propriedade é usada na pesquisa de usuários para inserir como membro, ela é necessária para preencher na
+    //pesquisa somente usuários que ainda NÃO são membros
+    private Boolean usuarioJaMembro;
 
     public Usuario() {
     }
@@ -64,6 +67,14 @@ public class Usuario {
 
     public String getNomeReferenciaUsuario() {
         return nomeReferenciaUsuario;
+    }
+
+    public Boolean getUsuarioJaMembro() {
+        return usuarioJaMembro;
+    }
+
+    public void setUsuarioJaMembro(Boolean usuarioJaMembro) {
+        this.usuarioJaMembro = usuarioJaMembro;
     }
 
     public Boolean getAdministrador() {

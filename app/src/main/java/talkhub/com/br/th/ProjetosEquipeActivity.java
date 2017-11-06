@@ -1,6 +1,7 @@
 package talkhub.com.br.th;
 
 import android.content.Intent;
+import android.os.PersistableBundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,10 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
     private String nomeEquipe;
     private String descEquipe;
     private List<Projeto> projetos = new ArrayList<Projeto>();
+
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +76,11 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
                         intentAddMembros.putExtra("idEquipe", idEquipe);
                         intentAddMembros.putExtra("nomeEquipe", nomeEquipe);
                         intentAddMembros.putExtra("descEquipe", descEquipe);
-                        startActivity(intentAddMembros);
+//                        startActivity(intentAddMembros);
+                        //Na linha abaixo eu chamo a outra acitivity enviando o número 1, este é o request code, será usado
+                        //para manter o id da equipe corrente, assim quando o usuário pressionar o botão de voltar,
+                        //esta actitivy irá funcionar corretamente
+                        startActivityForResult(intentAddMembros, 1);
                         return true;
 
                     case R.id.menuInformacoesEquipe:
