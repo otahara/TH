@@ -1,11 +1,13 @@
 package talkhub.com.br.th;
 
+import android.content.Intent;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,13 +34,33 @@ public class InfoEquipeActivity extends AppCompatActivity {
     private MembroListAdapter membroListAdapter;
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Log.d("backbutton", "cheguei");
+                Intent intent = new Intent(InfoEquipeActivity.this, ProjetosEquipeActivity.class);
+                intent.putExtra("idEquipe", idEquipe);
+                startActivity(intent);
+                break;
+        }
+        return true;
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info_equipe);
-        if(getSupportActionBar() != null){
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        }
+        android.support.v7.widget.Toolbar tbinfoequipe = (android.support.v7.widget.Toolbar)
+                findViewById(R.id.tb_info_equipe);
 
+        setSupportActionBar(tbinfoequipe);
+
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeButtonEnabled(true);
+        }
         Bundle bundle = getIntent().getExtras();
         idEquipe = bundle.getString("idEquipe");
 
