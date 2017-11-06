@@ -48,7 +48,7 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
         if(bundle !=null) {
             idEquipe = bundle.getString("idEquipe");
             nomeEquipe = bundle.getString("nomeEquipe");
-            descEquipe = bundle.getString("desEquipe");
+            descEquipe = bundle.getString("descEquipe");
         }
         tbProjetos.setTitle(nomeEquipe + " - Projetos");
 

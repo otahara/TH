@@ -3,6 +3,7 @@ package talkhub.com.br.th.Entities;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -14,14 +15,16 @@ public class Equipe {
     private String nome;
     private String descricao;
     private String usuarioCriador;
-    private List<String> administradores;
-    private List<String> membros;
+//    private List<String> administradores;
+//    private List<String> membros;
+    private HashMap<String, String> administradores;
+    private HashMap<String, String> membros;
 
     public Equipe() {
     }
 
     public Equipe(String id, String nome, String descricao,
-                  String usuarioCriador, List<String> administradores, List<String> membros) {
+                  String usuarioCriador, HashMap<String, String> administradores, HashMap<String, String> membros) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
@@ -47,11 +50,11 @@ public class Equipe {
         return usuarioCriador;
     }
 
-    public List<String> getAdministradores() {
+    public HashMap<String, String> getAdministradores() {
         return administradores;
     }
 
-    public List<String> getMembros() {
+    public HashMap<String, String> getMembros() {
         return membros;
     }
 
@@ -98,7 +101,8 @@ public class Equipe {
         DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios")
                 .child(idUsuario).child("equipes").child(idEquipe);
 
-        mRefUsuario.setValue(nomeEquipe, descEquipe);
+        mRefUsuario.setValue(nomeEquipe);
+        mRefUsuario.setValue(descEquipe);
 
     }
 

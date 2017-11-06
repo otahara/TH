@@ -17,6 +17,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import talkhub.com.br.th.Entities.Equipe;
@@ -28,8 +29,7 @@ public class NovaEquipeActivity extends AppCompatActivity {
     private EditText mNomeEquipe;
     private EditText mDescEquipe;
     private Button mSalvarEquipe;
-    private List<String> administradores = new ArrayList<String>();
-    private List<String> membros = new ArrayList<String>();
+    private HashMap<String, String> administradores = new HashMap<String, String>();
     private DatabaseReference mRef;
     private FirebaseAuth mAuth;
     private String idUsuario;
@@ -45,8 +45,7 @@ public class NovaEquipeActivity extends AppCompatActivity {
         mRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
         mAuth = FirebaseAuth.getInstance();
 
-        administradores.add(mAuth.getCurrentUser().getEmail().toString());
-        membros.add(mAuth.getCurrentUser().getEmail().toString());
+
 
 
         final String usuarioCriador = mAuth.getCurrentUser().getEmail().toString();
@@ -69,7 +68,10 @@ public class NovaEquipeActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot item : dataSnapshot.getChildren()) {
                             idUsuario = item.getKey();
-                            Equipe equipe = new Equipe(null,nomeEquipe, descEquipe, usuarioCriador, administradores, membros);
+                            HashMap<String, String> administrador = new HashMap<String, String>();
+                            administrador.put(idUsuario, usuarioCriador);
+                            Equipe equipe = new Equipe(null,nomeEquipe, descEquipe, usuarioCriador
+                                    , administrador, null);
                             equipe.novaEquipe(idUsuario);
                             startActivity(new Intent(NovaEquipeActivity.this, MainActivity.class));
                         }
