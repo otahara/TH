@@ -55,6 +55,7 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
                 Log.d("backbutton", "cheguei");
                 Intent intent = new Intent(AddMembroEquipeActivity.this, ProjetosEquipeActivity.class);
                 intent.putExtra("idEquipe", idEquipe);
+                intent.putExtra("nomeEquipe", nomeEquipe);
                 startActivity(intent);
                 break;
         }

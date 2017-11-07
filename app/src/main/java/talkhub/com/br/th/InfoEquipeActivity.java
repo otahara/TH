@@ -32,6 +32,7 @@ public class InfoEquipeActivity extends AppCompatActivity {
     private String idEquipe;
     private DatabaseReference mRef;
     private MembroListAdapter membroListAdapter;
+    private String nomeEquipe;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -41,6 +42,7 @@ public class InfoEquipeActivity extends AppCompatActivity {
                 Log.d("backbutton", "cheguei");
                 Intent intent = new Intent(InfoEquipeActivity.this, ProjetosEquipeActivity.class);
                 intent.putExtra("idEquipe", idEquipe);
+                intent.putExtra("nomeEquipe", nomeEquipe);
                 startActivity(intent);
                 break;
         }
@@ -63,6 +65,7 @@ public class InfoEquipeActivity extends AppCompatActivity {
         }
         Bundle bundle = getIntent().getExtras();
         idEquipe = bundle.getString("idEquipe");
+        nomeEquipe = bundle.getString("nomeEquipe");
 
 
 
