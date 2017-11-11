@@ -43,7 +43,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProjetosEquipeActivity" />
         </activity>
-        <activity android:name=".HomeProjetoActivity"></activity>
+        <activity android:name=".MuralEquipeActivity"></activity>
     </application>
 
 </manifest>

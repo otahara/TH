@@ -4,11 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools" tools:context=".ProjetosEquipeActivity">
 
     <item android:title="@string/action_criar_projeto"
+        android:icon="@drawable/ic_add_black_24dp"
         android:id="@+id/menuCriarProjeto"
         android:orderInCategory="100"
         app:showAsAction="never"/>
 
     <item android:title="Adicionar Membros"
+        android:icon="@drawable/ic_person_add_black_24dp"
         android:id="@+id/menuAdicionarMembros"
         android:orderInCategory="100"
         app:showAsAction="never"/>
