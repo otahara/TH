@@ -12,15 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#ddd">
+        android:background="@drawable/card_shape">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Titulo"
+        android:text="Título"
+        android:padding="10dp"
         android:textColor="@color/bgcolor"
         android:textAlignment="center"
-        android:background="@color/colorPrimaryDark"
+        android:background="@drawable/card_shape"
+        android:backgroundTint="@color/colorPrimaryLessDark"
         android:textSize="25sp"
         android:id="@+id/tv_nome_equipe"
         />

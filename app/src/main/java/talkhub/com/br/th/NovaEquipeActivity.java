@@ -29,10 +29,9 @@ public class NovaEquipeActivity extends AppCompatActivity {
     private EditText mNomeEquipe;
     private EditText mDescEquipe;
     private Button mSalvarEquipe;
-    private HashMap<String, String> administradores = new HashMap<String, String>();
     private DatabaseReference mRef;
     private FirebaseAuth mAuth;
-    private String idUsuario;
+    private Usuario usuario = new Usuario();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +46,10 @@ public class NovaEquipeActivity extends AppCompatActivity {
 
 
 
+        //é pego o email do usuário logado para que esta informação possa ser usada e possamos encontrar o
+        //o id do usuário
+        usuario.setEmail(mAuth.getCurrentUser().getEmail().toString());
 
-        final String usuarioCriador = mAuth.getCurrentUser().getEmail().toString();
 
 
 
@@ -60,19 +61,16 @@ public class NovaEquipeActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-                Query query = mRef.orderByChild("email").equalTo(usuarioCriador);
+                Query query = mRef.orderByChild("email").equalTo(usuario.getEmail());
                 final String nomeEquipe = mNomeEquipe.getText().toString();
                 final String descEquipe = mDescEquipe.getText().toString();
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot item : dataSnapshot.getChildren()) {
-                            idUsuario = item.getKey();
-                            HashMap<String, String> administrador = new HashMap<String, String>();
-                            administrador.put(idUsuario, usuarioCriador);
-                            Equipe equipe = new Equipe(null,nomeEquipe, descEquipe, usuarioCriador
-                                    , administrador, null);
-                            equipe.novaEquipe(idUsuario);
+                            usuario.setId(item.getKey());
+                            Equipe equipe = new Equipe(null,nomeEquipe, descEquipe, usuario);
+                            equipe.novaEquipe(usuario);
                             startActivity(new Intent(NovaEquipeActivity.this, MainActivity.class));
                         }
                     }

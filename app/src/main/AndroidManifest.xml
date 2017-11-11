@@ -30,7 +30,7 @@
         </activity>
         <activity
             android:name=".ProjetosEquipeActivity"
-            android:parentActivityName=".MainActivity" >
+            android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -38,11 +38,12 @@
         <activity android:name=".NovoProjetoActivity" />
         <activity
             android:name=".AddMembroEquipeActivity"
-            android:parentActivityName=".ProjetosEquipeActivity" >
+            android:parentActivityName=".ProjetosEquipeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProjetosEquipeActivity" />
         </activity>
+        <activity android:name=".HomeProjetoActivity"></activity>
     </application>
 
 </manifest>

@@ -18,10 +18,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Titulo"
+            android:padding="10dp"
             android:textColor="@color/bgcolor"
             android:textAlignment="center"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimaryLessDark"
             android:textSize="25sp"
+
             android:id="@+id/tv_nome_projeto"
             />
 

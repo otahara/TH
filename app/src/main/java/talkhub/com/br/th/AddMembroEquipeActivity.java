@@ -34,6 +34,10 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
     private String nomeEquipe;
     private String descEquipe;
     private DatabaseReference mRefUsuario;
+    //os objetos serão usados para fazer uma query que vai buscar todos os membros da equipe
+    //asssim, quando a listagem dos usuários para inserção como membro for feita, os usuários que já são membros serão destacados
+    private DatabaseReference mRefMembrosEquipe;
+    private List<String> idUsuariosJaMembros = new ArrayList<String>();
     private FirebaseAuth mAuth;
     private EditText mTextoPesquisa;
     private Button mPesquisar;
@@ -80,6 +84,8 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
         tbAddMembrosEquipe.setTitle("Adicionar Membros - " + nomeEquipe);
 
         mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
+        mRefMembrosEquipe = FirebaseDatabase.getInstance().getReference().child("equipes").child(idEquipe).child("membros");
+
 
         mTextoPesquisa = (EditText) findViewById(R.id.et_pesquisa);
         mPesquisar = (Button) findViewById(R.id.bt_pesquisar);
@@ -125,6 +131,7 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
                             DatabaseReference mRefVerificaMembroUsuario = FirebaseDatabase.getInstance().getReference()
                                     .child(idEquipe).child("membros");
                             mRefVerificaMembroUsuario.addListenerForSingleValueEvent(new ValueEventListener() {
+
                                 @Override
                                 public void onDataChange(DataSnapshot dataSnapshot) {
                                     for(DataSnapshot item : dataSnapshot.getChildren()){
@@ -178,6 +185,8 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
             }
 
         });
+
+
     }
 }
 

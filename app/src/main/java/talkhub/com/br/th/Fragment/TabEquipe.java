@@ -124,14 +124,14 @@ public class TabEquipe extends Fragment {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for(DataSnapshot item: dataSnapshot.getChildren()){
                     for (DataSnapshot equipeItem: item.child("equipes").getChildren()){
-//                        HashMap<String, String> equipe = new HashMap<String, String>();
                         Equipe equipe = new Equipe();
+
                         equipe.setId(equipeItem.getKey());
                         equipe.setNome(equipeItem.child("nome").getValue().toString());
                         equipe.setDescricao(equipeItem.child("descricao").getValue().toString());
+
                         equipes.add(equipe);
 
-//                        equipe.put(equipeItem.getKey(),equipeItem.getValue().toString());
                         equipeListAdapter.notifyDataSetChanged();
                     }
                 }

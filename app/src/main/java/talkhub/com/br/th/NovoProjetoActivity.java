@@ -16,6 +16,8 @@ public class NovoProjetoActivity extends AppCompatActivity {
     private EditText mDescProjeto;
     private Button mSalvarProjeto;
     private String idEquipe;
+    private String nomeEquipe;
+    private String descEquipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,8 @@ public class NovoProjetoActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         idEquipe = bundle.getString("idEquipe");
+        nomeEquipe = bundle.getString("nomeEquipe");
+        descEquipe = bundle.getString("descEquipe");
 
         mNomeProjeto = (EditText) findViewById(R.id.et_nome_projeto);
         mDescProjeto = (EditText) findViewById(R.id.et_desc_projeto);
@@ -44,6 +48,8 @@ public class NovoProjetoActivity extends AppCompatActivity {
                 projeto.novoProjeto(idEquipe);
                 Intent intent = new Intent(NovoProjetoActivity.this, ProjetosEquipeActivity.class);
                 intent.putExtra("idEquipe", idEquipe);
+                intent.putExtra("nomeEquipe", nomeEquipe);
+                intent.putExtra("descEquipe", descEquipe);
                 startActivity(intent);
             }
         });

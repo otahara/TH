@@ -14,76 +14,73 @@ public class Equipe {
     private String id;
     private String nome;
     private String descricao;
-    private String usuarioCriador;
+    private Usuario usuarioCriador;
 //    private List<String> administradores;
 //    private List<String> membros;
-    private HashMap<String, String> administradores;
-    private HashMap<String, String> membros;
+    private HashMap<String, Usuario> membros;
 
     public Equipe() {
     }
 
     public Equipe(String id, String nome, String descricao,
-                  String usuarioCriador, HashMap<String, String> administradores, HashMap<String, String> membros) {
+                  Usuario usuario) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
-        this.usuarioCriador = usuarioCriador;
-        this.administradores = administradores;
-        this.membros = membros;
+        this.usuarioCriador = usuario;
     }
-
 
     public String getId() {
         return id;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public String getUsuarioCriador(){
-        return usuarioCriador;
-    }
-
-    public HashMap<String, String> getAdministradores() {
-        return administradores;
-    }
-
-    public HashMap<String, String> getMembros() {
-        return membros;
     }
 
     public void setId(String id) {
         this.id = id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
     }
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
     }
 
-    public void novaEquipe(String idUsuarioLogado){
+    public Usuario getUsuarioCriador() {
+        return usuarioCriador;
+    }
+
+    public void setUsuarioCriador(Usuario usuarioCriador) {
+        this.usuarioCriador = usuarioCriador;
+    }
+
+    public void novaEquipe(Usuario usuario){
 
         DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes");
         DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
 
+        //Preenche o hashmap "membros" inserindo o usuário que está logado, pois este usuário já vai ser considerado
+        //um membro do projeto
+        this.membros = new HashMap<String, Usuario>();
+        this.membros.put(usuario.getId(), usuario);
+
+
         //Cria um id para a equipe
-        String keyEquipe = mRefEquipe.push().getKey();
+        this.id = mRefEquipe.push().getKey();
         //Adiciona a nova equipe no documento de equipes
-        mRefEquipe.child(keyEquipe).setValue(this);
+        mRefEquipe.child(this.id).setValue(this);
 
         //Embeda no documento "usuario" o id e o nome da equipe
-
-        mRefUsuario.child(idUsuarioLogado).child("equipes").child(keyEquipe).child("nome").setValue(this.nome);
-        mRefUsuario.child(idUsuarioLogado).child("equipes").child(keyEquipe).child("descricao").setValue(this.descricao);
+        mRefUsuario.child(usuario.getId()).child("equipes").child(this.id).child("nome").setValue(this.nome);
+        mRefUsuario.child(usuario.getId()).child("equipes").child(this.id).child("descricao").setValue(this.descricao);
 
 
 

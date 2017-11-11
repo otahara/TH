@@ -68,6 +68,9 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
                     case R.id.menuCriarProjeto:
                         Intent intentCriarProjeto = new Intent(ProjetosEquipeActivity.this, NovoProjetoActivity.class);
                         intentCriarProjeto.putExtra("idEquipe", idEquipe);
+                        intentCriarProjeto.putExtra("nomeEquipe", nomeEquipe);
+                        intentCriarProjeto.putExtra("descEquipe", descEquipe);
+
                         startActivity(intentCriarProjeto);
                         return true;
 
@@ -115,16 +118,19 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
                 .child(idEquipe).child("projetos");
         Query query =  mRefProjetos;
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                projetos.clear();
                 for(DataSnapshot item : dataSnapshot.getChildren()){
                     Projeto projeto = new Projeto();
-                    projeto.setId(item.getKey());
-                    projeto.setNome(item.child("nome").getValue().toString());
-                    projeto.setDescricao(item.child("descricao").getValue().toString());
-                    projetos.add(projeto);
-                    projetoListAdapter.notifyDataSetChanged();
+                    if(item.hasChild("nome") && item.hasChild("descricao")) {
+                        projeto.setId(item.getKey());
+                        projeto.setNome(item.child("nome").getValue().toString());
+                        projeto.setDescricao(item.child("descricao").getValue().toString());
+                        projetos.add(projeto);
+                        projetoListAdapter.notifyDataSetChanged();
+                    }
                 }
             }
 
@@ -133,6 +139,8 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
 
             }
         });
+
+
 
 
 
