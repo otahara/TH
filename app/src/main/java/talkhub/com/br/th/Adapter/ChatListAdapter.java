@@ -59,6 +59,7 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         chatViewHolder.mBubbleMsg.setText(chatMensagem.getTexto());
         chatViewHolder.mNomeUsuario.setText(chatMensagem.getNomeUsuario() + " " + chatMensagem.getSobrenomeUsuario());
 
+        //Verifica se a mensagem é do usuário logado, caso seja, o balão da mensagem é movido para a direita, caso não, ele fica na esquerda
         if(this.idUsuario.equals(chatMensagem.getIdUsuario())) {
             chatViewHolder.mLLayoutMsg.setGravity(Gravity.RIGHT);
         } else{
