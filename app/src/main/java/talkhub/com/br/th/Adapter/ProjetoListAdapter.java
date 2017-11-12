@@ -24,10 +24,14 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
     private Context context;
     private String idProjeto;
     private String nomeProjeto;
+    private String idEquipe;
+    private String nomeEquipe;
 
-    public ProjetoListAdapter(List<Projeto> projetos, Context context) {
+    public ProjetoListAdapter(List<Projeto> projetos, Context context, String idEquipe, String nomeEquipe) {
         this.projetos = projetos;
         this.context = context;
+        this.idEquipe = idEquipe;
+        this.nomeEquipe = nomeEquipe;
     }
 
     @Override
@@ -47,19 +51,19 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
 
         ProjetoViewHolder projetoViewHolder = (ProjetoViewHolder) holder;
 
-        Projeto projeto = projetos.get(position);
+        final Projeto projeto = projetos.get(position);
         projetoViewHolder.mNomeProjeto.setText(projeto.getNome());
         projetoViewHolder.mDescProjeto.setText(projeto.getDescricao());
-        idProjeto = projeto.getId();
-        nomeProjeto = projeto.getNome();
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, MuralEquipeActivity.class);
-                intent.putExtra("idProjeto", idProjeto);
-                intent.putExtra("nomeProjeto", nomeProjeto);
+                intent.putExtra("idProjeto", projeto.getId());
+                intent.putExtra("nomeProjeto", projeto.getNome());
+                intent.putExtra("idEquipe", idEquipe);
+                intent.putExtra("nomeEquipe", nomeEquipe);
                 context.startActivity(intent);
             }
         });

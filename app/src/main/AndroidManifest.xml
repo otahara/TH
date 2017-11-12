@@ -43,7 +43,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProjetosEquipeActivity" />
         </activity>
-        <activity android:name=".MuralEquipeActivity"></activity>
+        <activity
+            android:name=".MuralEquipeActivity"
+            android:parentActivityName=".ProjetosEquipeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ProjetosEquipeActivity" />
+        </activity>
     </application>
 
 </manifest>

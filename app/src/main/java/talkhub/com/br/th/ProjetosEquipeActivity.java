@@ -109,7 +109,7 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(layoutManager);
 
-        final ProjetoListAdapter projetoListAdapter = new ProjetoListAdapter(projetos, this);
+        final ProjetoListAdapter projetoListAdapter = new ProjetoListAdapter(projetos, this, idEquipe, nomeEquipe);
         recyclerView.setAdapter(projetoListAdapter);
 
 

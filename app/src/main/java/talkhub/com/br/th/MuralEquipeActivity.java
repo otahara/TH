@@ -1,13 +1,16 @@
 package talkhub.com.br.th;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -32,6 +35,8 @@ public class MuralEquipeActivity extends AppCompatActivity {
 
     private String idProjeto;
     private String nomeProjeto;
+    private String idEquipe;
+    private String nomeEquipe;
     
     private ImageButton mButtonEnviarMensagem;
     private EditText mEditTextMensagem;
@@ -45,6 +50,22 @@ public class MuralEquipeActivity extends AppCompatActivity {
 
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Log.d("backbutton", "cheguei");
+                Intent intent = new Intent(MuralEquipeActivity.this, ProjetosEquipeActivity.class);
+                intent.putExtra("idEquipe", idEquipe);
+                intent.putExtra("nomeEquipe", nomeEquipe);
+                startActivity(intent);
+                break;
+        }
+        return true;
+
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mural_equipe);
@@ -52,6 +73,8 @@ public class MuralEquipeActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         idProjeto = bundle.getString("idProjeto");
         nomeProjeto = bundle.getString("nomeProjeto");
+        idEquipe = bundle.getString("idEquipe");
+        nomeEquipe = bundle.getString("nomeEquipe");
 
 
         android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tb_muralequipe);
@@ -62,6 +85,8 @@ public class MuralEquipeActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolbar.inflateMenu(R.menu.menu_projetos_equipe);
+
+
 
         mButtonEnviarMensagem = (ImageButton) findViewById(R.id.bt_enviar_msg);
         mEditTextMensagem = (EditText) findViewById(R.id.et_Mensagem);
