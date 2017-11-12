@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import com.github.library.bubbleview.BubbleTextView;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.logging.SimpleFormatter;
 
 import talkhub.com.br.th.Entities.ChatMensagem;
 import talkhub.com.br.th.R;
@@ -58,6 +61,13 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         ChatMensagem chatMensagem = mensagens.get(position);
         chatViewHolder.mBubbleMsg.setText(chatMensagem.getTexto());
         chatViewHolder.mNomeUsuario.setText(chatMensagem.getNomeUsuario() + " " + chatMensagem.getSobrenomeUsuario());
+
+        //Pega o float da data e transforma em uma string do tipo data
+        Date date = new Date(chatMensagem.getHoraMsg());
+        String dataFormatada = new SimpleDateFormat("dd-MM-yy HH:mm").format(date);
+
+        chatViewHolder.mTimeMsg.setText(dataFormatada);
+
 
         //Verifica se a mensagem é do usuário logado, caso seja, o balão da mensagem é movido para a direita, caso não, ele fica na esquerda
         if(this.idUsuario.equals(chatMensagem.getIdUsuario())) {
