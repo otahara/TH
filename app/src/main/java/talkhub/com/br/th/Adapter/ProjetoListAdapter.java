@@ -1,6 +1,7 @@
 package talkhub.com.br.th.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import talkhub.com.br.th.Entities.Projeto;
+import talkhub.com.br.th.MuralEquipeActivity;
 import talkhub.com.br.th.R;
 import talkhub.com.br.th.ViewHolder.ProjetoViewHolder;
 
@@ -21,7 +23,7 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
     private List<Projeto> projetos;
     private Context context;
     private String idProjeto;
-
+    private String nomeProjeto;
 
     public ProjetoListAdapter(List<Projeto> projetos, Context context) {
         this.projetos = projetos;
@@ -49,6 +51,18 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
         projetoViewHolder.mNomeProjeto.setText(projeto.getNome());
         projetoViewHolder.mDescProjeto.setText(projeto.getDescricao());
         idProjeto = projeto.getId();
+        nomeProjeto = projeto.getNome();
+
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, MuralEquipeActivity.class);
+                intent.putExtra("idProjeto", idProjeto);
+                intent.putExtra("nomeProjeto", nomeProjeto);
+                context.startActivity(intent);
+            }
+        });
 
 
 

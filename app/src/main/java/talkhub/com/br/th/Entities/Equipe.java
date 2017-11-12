@@ -98,8 +98,8 @@ public class Equipe {
         DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios")
                 .child(idUsuario).child("equipes").child(idEquipe);
 
-        mRefUsuario.setValue(nomeEquipe);
-        mRefUsuario.setValue(descEquipe);
+        mRefUsuario.child("nome").setValue(nomeEquipe);
+        mRefUsuario.child("descricao").setValue(descEquipe);
 
     }
 

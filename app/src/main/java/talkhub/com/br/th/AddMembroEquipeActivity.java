@@ -78,7 +78,7 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
         if (bundle != null) {
             idEquipe = bundle.getString("idEquipe");
             nomeEquipe = bundle.getString("nomeEquipe");
-            descEquipe = bundle.getString("desEquipe");
+            descEquipe = bundle.getString("descEquipe");
         }
 
         tbAddMembrosEquipe.setTitle("Adicionar Membros - " + nomeEquipe);

@@ -2,57 +2,59 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="talkhub.com.br.th.MuralEquipeActivity">
 
     <android.support.v7.widget.Toolbar
+        android:id="@+id/tb_muralequipe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tb_muralequipe"
         android:background="@color/colorPrimaryDark"
         android:minHeight="?attr/actionBarSize"
-        android:visibility="visible"
-        app:titleTextColor="@color/menu"
         android:theme="@style/menuDaMain"
-        app:popupTheme="@style/popUpMenuDaMain"/>
+        android:visibility="visible"
+        app:popupTheme="@style/popUpMenuDaMain"
+        app:titleTextColor="@color/menu" />
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/bgcolor">
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="@color/bgcolor"
+        android:gravity="bottom"
+        android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycleMuralEquipe"
+            android:id="@+id/rv_chat"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/bgcolor"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="20dp">
+
+        <EditText
+            android:id="@+id/et_Mensagem"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@color/bgcolor"
-            android:paddingBottom="10dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="20dp"
-            android:layout_alignParentBottom="true">
+            android:layout_weight="1"
+            android:hint="O que você tem a dizer?"
+            android:inputType="text" />
 
-            <EditText
-                android:id="@+id/etMensagem"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="O que você tem a dizer?"
-                android:layout_weight="1"
-                android:inputType="text"/>
-
-            <ImageButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/colorPrimaryDark"
-                android:src="@drawable/ic_send_black_18dp" />
-        </LinearLayout>
-
-
-    </RelativeLayout>
+        <ImageButton
+            android:id="@+id/bt_enviar_msg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimaryDark"
+            android:src="@drawable/ic_send_black_18dp" />
+    </LinearLayout>
 </LinearLayout>

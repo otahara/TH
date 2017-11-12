@@ -2,19 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".ProjetosEquipeActivity">
+    tools:context=".ProjetosEquipeActivity"
+    >
 
-    <item android:title="Mural"
-        android:icon="@drawable/ic_mural_24dp"
-        android:id="@+id/menuMuralEquipe"
-        android:orderInCategory="100"
-        app:showAsAction="always"/>
-
-    <item android:title="@string/action_criar_projeto"
-        android:icon="@drawable/ic_add_black_24dp"
-        android:id="@+id/menuCriarProjeto"
-        android:orderInCategory="100"
-        app:showAsAction="never"/>
 
     <item android:title="Adicionar Membros"
         android:icon="@drawable/ic_person_add_black_24dp"
@@ -26,10 +16,5 @@
         android:id="@+id/menuInformacoesEquipe"
         android:orderInCategory="100"
         app:showAsAction="never"/>
-
-
-
-
-
 
 </menu>

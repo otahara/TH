@@ -22,7 +22,7 @@
         android:textColor="@color/bgcolor"
         android:textAlignment="center"
         android:background="@drawable/card_shape"
-        android:backgroundTint="@color/colorPrimaryLessDark"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:textSize="25sp"
         android:id="@+id/tv_nome_equipe"
         />
