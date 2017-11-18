@@ -10,10 +10,12 @@ package talkhub.com.br.th;
         import android.text.TextUtils;
         import android.text.TextWatcher;
         import android.util.Log;
+        import android.view.Menu;
         import android.view.MenuItem;
         import android.view.View;
         import android.widget.EditText;
         import android.widget.ImageButton;
+        import android.widget.Toast;
 
         import com.google.firebase.auth.FirebaseAuth;
         import com.google.firebase.database.ChildEventListener;
@@ -31,7 +33,7 @@ package talkhub.com.br.th;
         import talkhub.com.br.th.Entities.ChatMensagem;
         import talkhub.com.br.th.Entities.Usuario;
 
-public class MuralEquipeActivity extends AppCompatActivity {
+public class ChatProjetoActivity extends AppCompatActivity {
 
     private String idProjeto;
     private String nomeProjeto;
@@ -54,7 +56,7 @@ public class MuralEquipeActivity extends AppCompatActivity {
             // Respond to the action bar's Up/Home button
             case android.R.id.home:
                 Log.d("backbutton", "cheguei");
-                Intent intent = new Intent(MuralEquipeActivity.this, ProjetosEquipeActivity.class);
+                Intent intent = new Intent(ChatProjetoActivity.this, ProjetosEquipeActivity.class);
                 intent.putExtra("idEquipe", idEquipe);
                 intent.putExtra("nomeEquipe", nomeEquipe);
                 startActivity(intent);
@@ -83,7 +85,31 @@ public class MuralEquipeActivity extends AppCompatActivity {
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
-        toolbar.inflateMenu(R.menu.menu_projetos_equipe);
+        toolbar.inflateMenu(R.menu.menu_projeto);
+        
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                
+                switch (item.getItemId()){
+                    
+                    case R.id.menuAdicionarMembros:
+                        Intent intent = new Intent(ChatProjetoActivity.this, AddMembroProjetoActivity.class);
+                        intent.putExtra("idEquipe", idEquipe);
+                        intent.putExtra("nomeEquipe", nomeEquipe);
+                        intent.putExtra("idProjeto", idProjeto);
+                        intent.putExtra("nomeProjeto", nomeProjeto);
+                        startActivity(intent);
+                        return true;
+                    
+                }
+                
+                
+                
+                return false;
+
+            }
+        });
 
 
 
@@ -182,7 +208,6 @@ public class MuralEquipeActivity extends AppCompatActivity {
                 msg.setSobrenomeUsuario(dataSnapshot.child("sobrenomeUsuario").getValue().toString());
                 msg.setTexto(dataSnapshot.child("texto").getValue().toString());
                 msg.setHoraMsg(Long.valueOf(dataSnapshot.child("horaMsg").getValue().toString()));
-                Log.d("msg", "peguei a mensagem");
                 mensagens.add(msg);
                 chatListAdapter.notifyDataSetChanged();
                 recyclerView.scrollToPosition(mensagens.size() -1);
@@ -211,5 +236,9 @@ public class MuralEquipeActivity extends AppCompatActivity {
 
             }
         });
+    }
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_projeto, menu);
+        return true;
     }
 }

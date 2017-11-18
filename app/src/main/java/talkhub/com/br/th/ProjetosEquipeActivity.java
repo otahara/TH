@@ -53,9 +53,11 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
         tbProjetos.setTitle(nomeEquipe + " - Projetos");
 
         setSupportActionBar(tbProjetos);
+
         if(getSupportActionBar() != null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+
         tbProjetos.inflateMenu(R.menu.menu_equipe);
 
 

@@ -84,12 +84,12 @@ public class Projeto {
         this.membros = membros;
     }
 
-    public void novoProjeto(final String idEquipe, final Usuario usuario){
+    public void novoProjeto(final String idEquipe, final Usuario usuario) {
         final DatabaseReference mRefProjeto = FirebaseDatabase.getInstance().getReference().child("projetos");
         final DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
         final DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes");
         //Para pegar dados do usuário logado
-        FirebaseAuth  mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         String emailUsuarioLogado = mAuth.getCurrentUser().getEmail().toString();
         Query query = mRefUsuario.orderByChild("email").equalTo(emailUsuarioLogado);
 
@@ -100,10 +100,10 @@ public class Projeto {
 
 
         //Busca o id do usuário logado e então embeda a nova equipe no usuário e também em equipes
-        query.addListenerForSingleValueEvent(new ValueEventListener( ){
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot item : dataSnapshot.getChildren()){
+                for (DataSnapshot item : dataSnapshot.getChildren()) {
                     String idUsuarioLogado = item.getKey();
                     //Cria um id para o projeto
                     String idProjeto = mRefProjeto.push().getKey();
@@ -126,6 +126,25 @@ public class Projeto {
 
             }
         });
+    }
+
+
+        public void novoMembro(String  idEquipe,  Usuario usuario){
+
+
+            //Embeda o usuário no projeto
+            DatabaseReference mRefProjeto = FirebaseDatabase.getInstance().getReference()
+                    .child("equipes").child(idEquipe).child("projetos").child(this.getId()).child("membros").child(usuario.getId());
+            mRefProjeto.setValue(usuario);
+
+            //Embeda o projeto no usuário
+        DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference()
+                .child("usuarios").child(usuario.getId()).child("projetos");
+        mRefUsuario.setValue(this);
+
+
+
+    }
 
 
 
@@ -144,4 +163,4 @@ public class Projeto {
 
 
 
-}
+

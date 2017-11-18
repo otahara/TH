@@ -23,7 +23,7 @@ import talkhub.com.br.th.ViewHolder.UsuarioViewHolder;
  * Created by ferna on 31/10/2017.
  */
 
-public class UsuarioListAdapter extends RecyclerView.Adapter {
+public class InserirUsuarioEquipeListAdapter extends RecyclerView.Adapter {
 
     private List<Usuario> usuarios;
     private Context context;
@@ -31,8 +31,8 @@ public class UsuarioListAdapter extends RecyclerView.Adapter {
     private String nomeEquipe;
     private String descEquipe;
 
-    public UsuarioListAdapter(List<Usuario> usuarios, Context context,
-                              String idEquipe, String nomeEquipe, String descEquipe) {
+    public InserirUsuarioEquipeListAdapter(List<Usuario> usuarios, Context context,
+                                           String idEquipe, String nomeEquipe, String descEquipe) {
         this.usuarios = usuarios;
         this.context = context;
         this.idEquipe = idEquipe;

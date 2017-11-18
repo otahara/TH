@@ -1,13 +1,10 @@
 package talkhub.com.br.th;
 
 import android.content.Intent;
-import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -25,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import talkhub.com.br.th.Adapter.UsuarioListAdapter;
+import talkhub.com.br.th.Adapter.InserirUsuarioEquipeListAdapter;
 import talkhub.com.br.th.Entities.Usuario;
 
 public class AddMembroEquipeActivity extends AppCompatActivity {
@@ -54,18 +51,18 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            // Respond to the action bar's Up/Home button
             case android.R.id.home:
-                Log.d("backbutton", "cheguei");
                 Intent intent = new Intent(AddMembroEquipeActivity.this, ProjetosEquipeActivity.class);
                 intent.putExtra("idEquipe", idEquipe);
                 intent.putExtra("nomeEquipe", nomeEquipe);
+                intent.putExtra("descEquipe", descEquipe);
                 startActivity(intent);
                 break;
         }
         return true;
-
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +100,9 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
 
-        final UsuarioListAdapter usuarioListAdapter = new UsuarioListAdapter(usuarios, this,
+        final InserirUsuarioEquipeListAdapter inserirUsuarioEquipeListAdapter = new InserirUsuarioEquipeListAdapter(usuarios, this,
                 idEquipe, nomeEquipe, descEquipe);
-        recyclerView.setAdapter(usuarioListAdapter);
+        recyclerView.setAdapter(inserirUsuarioEquipeListAdapter);
 
         mPesquisar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -118,6 +115,7 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
+
 
                     }
 
@@ -133,7 +131,7 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
                                 usuario.setSobrenome(item.child("sobrenome").getValue().toString());
 
                                 usuarios.add(usuario);
-                                usuarioListAdapter.notifyDataSetChanged();
+                                inserirUsuarioEquipeListAdapter.notifyDataSetChanged();
 
 //                            //O Bloco Abaixo é usado para verificar se o usuário já não é um membro comum
 //                            usuario.setUsuarioJaMembro(false);

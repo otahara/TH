@@ -44,12 +44,20 @@
                 android:value=".ProjetosEquipeActivity" />
         </activity>
         <activity
-            android:name=".MuralEquipeActivity"
+            android:name=".ChatProjetoActivity"
             android:parentActivityName=".ProjetosEquipeActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ProjetosEquipeActivity" />
         </activity>
+        <activity
+            android:name=".AddMembroProjetoActivity"
+            android:parentActivityName=".ChatProjetoActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ChatProjetoActivity" />
+        </activity>
     </application>
+
 
 </manifest>

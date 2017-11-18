@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import talkhub.com.br.th.Entities.Projeto;
-import talkhub.com.br.th.MuralEquipeActivity;
+import talkhub.com.br.th.ChatProjetoActivity;
 import talkhub.com.br.th.R;
 import talkhub.com.br.th.ViewHolder.ProjetoViewHolder;
 
@@ -59,7 +59,7 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(context, MuralEquipeActivity.class);
+                Intent intent = new Intent(context, ChatProjetoActivity.class);
                 intent.putExtra("idProjeto", projeto.getId());
                 intent.putExtra("nomeProjeto", projeto.getNome());
                 intent.putExtra("idEquipe", idEquipe);

@@ -1,16 +1,13 @@
 package talkhub.com.br.th;
 
 import android.content.Intent;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.Button;
 
-import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import talkhub.com.br.th.Adapter.MembroListAdapter;
-import talkhub.com.br.th.Adapter.UsuarioListAdapter;
 import talkhub.com.br.th.Entities.Usuario;
 
 public class InfoEquipeActivity extends AppCompatActivity {
