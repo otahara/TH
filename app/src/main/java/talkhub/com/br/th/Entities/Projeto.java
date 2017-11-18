@@ -84,7 +84,7 @@ public class Projeto {
         this.membros = membros;
     }
 
-    public void novoProjeto(final String idEquipe){
+    public void novoProjeto(final String idEquipe, final Usuario usuario){
         final DatabaseReference mRefProjeto = FirebaseDatabase.getInstance().getReference().child("projetos");
         final DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
         final DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes");
@@ -116,6 +116,8 @@ public class Projeto {
                             .setValue(nomeProjeto);
                     mRefEquipe.child(idEquipe).child("projetos").child(idProjeto).child("descricao")
                             .setValue(descProjeto);
+
+                    mRefEquipe.child(idEquipe).child("projetos").child(idProjeto).child("membros").child(idUsuarioLogado).setValue(usuario);
                 }
             }
 

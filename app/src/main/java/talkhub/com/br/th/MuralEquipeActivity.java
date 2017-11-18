@@ -1,35 +1,35 @@
 package talkhub.com.br.th;
 
-import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
-import android.text.Editable;
-import android.text.TextUtils;
-import android.text.TextWatcher;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.ImageButton;
+        import android.content.Intent;
+        import android.support.v7.app.AppCompatActivity;
+        import android.os.Bundle;
+        import android.support.v7.widget.LinearLayoutManager;
+        import android.support.v7.widget.RecyclerView;
+        import android.support.v7.widget.Toolbar;
+        import android.text.Editable;
+        import android.text.TextUtils;
+        import android.text.TextWatcher;
+        import android.util.Log;
+        import android.view.MenuItem;
+        import android.view.View;
+        import android.widget.EditText;
+        import android.widget.ImageButton;
 
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
+        import com.google.firebase.auth.FirebaseAuth;
+        import com.google.firebase.database.ChildEventListener;
+        import com.google.firebase.database.DataSnapshot;
+        import com.google.firebase.database.DatabaseError;
+        import com.google.firebase.database.DatabaseReference;
+        import com.google.firebase.database.FirebaseDatabase;
+        import com.google.firebase.database.Query;
+        import com.google.firebase.database.ValueEventListener;
 
-import java.util.ArrayList;
-import java.util.List;
+        import java.util.ArrayList;
+        import java.util.List;
 
-import talkhub.com.br.th.Adapter.ChatListAdapter;
-import talkhub.com.br.th.Entities.ChatMensagem;
-import talkhub.com.br.th.Entities.Usuario;
+        import talkhub.com.br.th.Adapter.ChatListAdapter;
+        import talkhub.com.br.th.Entities.ChatMensagem;
+        import talkhub.com.br.th.Entities.Usuario;
 
 public class MuralEquipeActivity extends AppCompatActivity {
 
@@ -37,14 +37,13 @@ public class MuralEquipeActivity extends AppCompatActivity {
     private String nomeProjeto;
     private String idEquipe;
     private String nomeEquipe;
-    
+
     private ImageButton mButtonEnviarMensagem;
     private EditText mEditTextMensagem;
 
     private Usuario usuario = new Usuario();
     private FirebaseAuth mAuth;
     private DatabaseReference mRefUsuario;
-    private DatabaseReference mRefEnviaMsg;
     private DatabaseReference mRefMsg;
     private List<ChatMensagem> mensagens = new ArrayList<ChatMensagem>();
 
@@ -92,7 +91,6 @@ public class MuralEquipeActivity extends AppCompatActivity {
         mEditTextMensagem = (EditText) findViewById(R.id.et_Mensagem);
         //O boitão deve ficar bloqueado até que o firebase retorne o id do usuario logado
         mButtonEnviarMensagem.setEnabled(false);
-        mRefEnviaMsg = FirebaseDatabase.getInstance().getReference();
 
 
 
@@ -125,10 +123,10 @@ public class MuralEquipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                    String mensagem = mEditTextMensagem.getText().toString();
-                    ChatMensagem chatMensagem = new ChatMensagem(mensagem, usuario);
-                    mRefEnviaMsg.child("mensagens").child("mensagens_projeto").child(idProjeto).push().setValue(chatMensagem);
-                    mEditTextMensagem.setText("");
+                String mensagem = mEditTextMensagem.getText().toString();
+                ChatMensagem chatMensagem = new ChatMensagem(mensagem, usuario);
+                chatMensagem.novaMensagem(idProjeto, idEquipe);
+                mEditTextMensagem.setText("");
 
             }
         });
@@ -143,7 +141,7 @@ public class MuralEquipeActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!TextUtils.isEmpty(mEditTextMensagem.getText().toString()))
                     mButtonEnviarMensagem.setEnabled(true);
-                 else
+                else
                     mButtonEnviarMensagem.setEnabled(false);
 
             }

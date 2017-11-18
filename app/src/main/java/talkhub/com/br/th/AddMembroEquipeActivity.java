@@ -63,7 +63,7 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
                 startActivity(intent);
                 break;
         }
-                return true;
+        return true;
 
     }
 
@@ -113,81 +113,96 @@ public class AddMembroEquipeActivity extends AppCompatActivity {
                 stringPesquisa = mTextoPesquisa.getText().toString();
                 usuarios.clear();
 
-                Query query = mRefUsuario.orderByChild("nomeReferenciaUsuario").startAt(stringPesquisa);
+                Query query = mRefUsuario;
 
                 query.addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        for (DataSnapshot item : dataSnapshot.getChildren()) {
-                            final Usuario usuario = new Usuario();
-                            usuario.setId(item.getKey());
-                            usuario.setEmail(item.child("email").getValue().toString());
-                            usuario.setNome(item.child("nome").getValue().toString());
-                            usuario.setNomeReferenciaUsuario(item.child("nomeReferenciaUsuario").getValue().toString());
-                            usuario.setSobrenome(item.child("sobrenome").getValue().toString());
-
-                            //O Bloco Abaixo é usado para verificar se o usuário já não é um membro comum
-                            usuario.setUsuarioJaMembro(false);
-                            DatabaseReference mRefVerificaMembroUsuario = FirebaseDatabase.getInstance().getReference()
-                                    .child(idEquipe).child("membros");
-                            mRefVerificaMembroUsuario.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    for(DataSnapshot item : dataSnapshot.getChildren()){
-                                        if(usuario.getId() == item.getKey())
-                                            usuario.setUsuarioJaMembro(true);
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-
-                                }
-                            });
-
-                            //Caso o usuarío não tenha sido identificado do membro, ele irá para esta outra verificação abaixo
-                            if(!usuario.getUsuarioJaMembro()) {
-                                //O Bloco Abaixo é usado para verificar se o usuário já não é um membro administrador
-                                mRefVerificaMembroUsuario = FirebaseDatabase.getInstance().getReference()
-                                        .child(idEquipe).child("administradores");
-                                mRefVerificaMembroUsuario.addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for(DataSnapshot item : dataSnapshot.getChildren()){
-                                            if(usuario.getId() == item.getKey())
-                                                usuario.setUsuarioJaMembro(true);
-                                        }
-                                    }
-
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-
-                                    }
-                                });
-                                //De acordo com as verificações feitas, o usuário será mostrado na recyclerview ou não
-                                if(!usuario.getUsuarioJaMembro()) {
-                                    usuarios.add(usuario);
-                                    usuarioListAdapter.notifyDataSetChanged();
-                                }
-                            }
-
-                        }
-                    }
-
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
 
                     }
 
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot item : dataSnapshot.getChildren()) {
+                            if (item.child("nomeReferenciaUsuario").getValue().toString().contains(stringPesquisa)) {
+                                final Usuario usuario = new Usuario();
+                                usuario.setId(item.getKey());
+                                usuario.setEmail(item.child("email").getValue().toString());
+                                usuario.setNome(item.child("nome").getValue().toString());
+                                usuario.setNomeReferenciaUsuario(item.child("nomeReferenciaUsuario").getValue().toString());
+                                usuario.setSobrenome(item.child("sobrenome").getValue().toString());
 
+                                usuarios.add(usuario);
+                                usuarioListAdapter.notifyDataSetChanged();
+
+//                            //O Bloco Abaixo é usado para verificar se o usuário já não é um membro comum
+//                            usuario.setUsuarioJaMembro(false);
+//                            DatabaseReference mRefVerificaMembroUsuario = FirebaseDatabase.getInstance().getReference()
+//                                    .child(idEquipe).child("membros");
+//                            mRefVerificaMembroUsuario.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//                                @Override
+//                                public void onDataChange(DataSnapshot dataSnapshot) {
+//                                    for(DataSnapshot item : dataSnapshot.getChildren()){
+//                                        if(usuario.getId() == item.getKey())
+//                                            usuario.setUsuarioJaMembro(true);
+//                                    }
+//                                }
+//
+//                                @Override
+//                                public void onCancelled(DatabaseError databaseError) {
+//
+//                                }
+//                            });
+//
+//                            //Caso o usuarío não tenha sido identificado do membro, ele irá para esta outra verificação abaixo
+//                            if(!usuario.getUsuarioJaMembro()) {
+//                                //O Bloco Abaixo é usado para verificar se o usuário já não é um membro administrador
+//                                mRefVerificaMembroUsuario = FirebaseDatabase.getInstance().getReference()
+//                                        .child(idEquipe).child("administradores");
+//                                mRefVerificaMembroUsuario.addListenerForSingleValueEvent(new ValueEventListener() {
+//                                    @Override
+//                                    public void onDataChange(DataSnapshot dataSnapshot) {
+//                                        for(DataSnapshot item : dataSnapshot.getChildren()){
+//                                            if(usuario.getId() == item.getKey())
+//                                                usuario.setUsuarioJaMembro(true);
+//                                        }
+//                                    }
+//
+//                                    @Override
+//                                    public void onCancelled(DatabaseError databaseError) {
+//
+//                                    }
+//                                });
+//                                //De acordo com as verificações feitas, o usuário será mostrado na recyclerview ou não
+//                                if(!usuario.getUsuarioJaMembro()) {
+//
+//                                }
+//                            }
+//
+//                        }
+//                    }
+//
+//                    @Override
+//                    public void onCancelled(DatabaseError databaseError) {
+//
+//                    }
+//
+//
+//                });
+//            }
+//
+//        });
+                            }
+                            
+                        }
+                    if(usuarios.isEmpty())
+                        Toast.makeText(AddMembroEquipeActivity.this, "Nenhum usuário encontrado!", Toast.LENGTH_SHORT).show();
+
+                    }
                 });
             }
-
         });
-
-
     }
 }
-
 

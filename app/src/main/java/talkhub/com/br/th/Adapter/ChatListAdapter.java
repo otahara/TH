@@ -1,6 +1,7 @@
 package talkhub.com.br.th.Adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -60,7 +61,6 @@ public class ChatListAdapter extends RecyclerView.Adapter {
 
         ChatMensagem chatMensagem = mensagens.get(position);
         chatViewHolder.mBubbleMsg.setText(chatMensagem.getTexto());
-        chatViewHolder.mNomeUsuario.setText(chatMensagem.getNomeUsuario() + " " + chatMensagem.getSobrenomeUsuario());
 
         //Pega o float da data e transforma em uma string do tipo data
         Date date = new Date(chatMensagem.getHoraMsg());
@@ -72,8 +72,12 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         //Verifica se a mensagem é do usuário logado, caso seja, o balão da mensagem é movido para a direita, caso não, ele fica na esquerda
         if(this.idUsuario.equals(chatMensagem.getIdUsuario())) {
             chatViewHolder.mLLayoutMsg.setGravity(Gravity.RIGHT);
+            chatViewHolder.mNomeUsuario.setText("Eu");
+
         } else{
             chatViewHolder.mLLayoutMsg.setGravity(Gravity.LEFT);
+            chatViewHolder.mNomeUsuario.setText(chatMensagem.getNomeUsuario());
+
 
         }
 

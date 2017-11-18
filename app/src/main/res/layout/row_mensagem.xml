@@ -22,7 +22,7 @@
         app:arrowPosition="14dp"
         app:arrowLocation="left"
         app:arrowCenter="true"
-        app:bubbleColor="#5fc282">
+        app:bubbleColor="#ebf5ee">
     </com.github.library.bubbleview.BubbleTextView>
 
     <LinearLayout
