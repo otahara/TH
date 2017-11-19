@@ -83,15 +83,23 @@ public class ChatMensagem {
         this.horaMsg = horaMsg;
     }
 
-    public void novaMensagem(String idProjeto, String idEquipe){
+    public void novaMensagemProjeto(String idProjeto, String idEquipe){
 
         DatabaseReference mRefEnviaMsg = FirebaseDatabase.getInstance().getReference();
-        DatabaseReference mRefMensagensPendente = FirebaseDatabase.getInstance().getReference().child("mensagens")
-                .child("mensagens_projeto").child("usuarios_pendente");
-        DatabaseReference mRefMembrosProjeto = FirebaseDatabase.getInstance().getReference().child("equipes").
-                child(idEquipe).child("projetos").child(idProjeto);
+
+
 
         mRefEnviaMsg.child("mensagens").child("mensagens_projeto").child(idProjeto).push().setValue(this);
+
+
+    }
+
+    public void novaMensagemEquipe(String idEquipe){
+
+        DatabaseReference mRefEnviaMsg = FirebaseDatabase.getInstance().getReference();
+
+
+        mRefEnviaMsg.child("mensagens").child("mensagens_equipe").child(idEquipe).push().setValue(this);
 
 
     }

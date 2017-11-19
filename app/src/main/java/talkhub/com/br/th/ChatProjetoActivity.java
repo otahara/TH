@@ -153,7 +153,7 @@ public class ChatProjetoActivity extends AppCompatActivity {
 
                 String mensagem = mEditTextMensagem.getText().toString();
                 ChatMensagem chatMensagem = new ChatMensagem(mensagem, usuario);
-                chatMensagem.novaMensagem(idProjeto, idEquipe);
+                chatMensagem.novaMensagemProjeto(idProjeto, idEquipe);
                 mEditTextMensagem.setText("");
 
             }
@@ -193,7 +193,7 @@ public class ChatProjetoActivity extends AppCompatActivity {
                 false);
         recyclerView.setLayoutManager(layoutManager);
 
-        final ChatListAdapter chatListAdapter = new ChatListAdapter(mensagens, this, idUsuario);
+        final ChatListAdapter chatListAdapter = new ChatListAdapter(mensagens, this);
         recyclerView.setAdapter(chatListAdapter);
 
 

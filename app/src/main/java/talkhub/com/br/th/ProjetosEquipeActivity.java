@@ -98,6 +98,13 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
                         startActivity(intentInfoEquipe);
                         return true;
 
+                    case R.id.menuChatEquipe:
+                        Intent intentChatEquipe = new Intent(ProjetosEquipeActivity.this, ChatEquipeActivity.class);
+                        intentChatEquipe.putExtra("idEquipe", idEquipe);
+                        intentChatEquipe.putExtra("nomeEquipe", nomeEquipe);
+                        startActivity(intentChatEquipe);
+                        return true;
+
 
                     default:
                         return false;

@@ -18,6 +18,7 @@ import java.util.logging.SimpleFormatter;
 
 import talkhub.com.br.th.CadastroActivity;
 import talkhub.com.br.th.Entities.ChatMensagem;
+import talkhub.com.br.th.LoginActivity;
 import talkhub.com.br.th.R;
 import talkhub.com.br.th.ViewHolder.ChatViewHolder;
 
@@ -30,13 +31,12 @@ public class ChatListAdapter extends RecyclerView.Adapter {
 
     private List<ChatMensagem> mensagens;
     private Context context;
-    private String idUsuario;
+    private String idUsuario = LoginActivity.idUsuario;
 
 
-    public ChatListAdapter(List<ChatMensagem> mensagens, Context context, String idUsuario) {
+    public ChatListAdapter(List<ChatMensagem> mensagens, Context context) {
         this.mensagens = mensagens;
         this.context = context;
-        this.idUsuario = idUsuario;
 
     }
 

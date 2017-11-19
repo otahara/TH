@@ -27,7 +27,7 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/rv_chat"
+            android:id="@+id/rv_chat_equipe"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
     </LinearLayout>
@@ -46,7 +46,7 @@
         >
 
         <EditText
-            android:id="@+id/et_Mensagem"
+            android:id="@+id/et_Mensagem_chat_equipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -54,7 +54,7 @@
             android:inputType="text" />
 
         <ImageButton
-            android:id="@+id/bt_enviar_msg"
+            android:id="@+id/bt_enviar_msg_chat_equipe"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/colorPrimaryDark"

@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ProjetosEquipeActivity">
 
-    <item android:title="Mural"
+    <item android:title="Chat da Equipe"
         android:icon="@drawable/ic_mural_24dp"
-        android:id="@+id/menuMuralEquipe"
+        android:id="@+id/menuChatEquipe"
         android:orderInCategory="100"
         app:showAsAction="always"/>
 
