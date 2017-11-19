@@ -1,16 +1,24 @@
 package talkhub.com.br.th.Adapter;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
 import talkhub.com.br.th.Entities.Projeto;
 import talkhub.com.br.th.ChatProjetoActivity;
+import talkhub.com.br.th.LoginActivity;
 import talkhub.com.br.th.R;
 import talkhub.com.br.th.ViewHolder.ProjetoViewHolder;
 
@@ -49,7 +57,7 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
-        ProjetoViewHolder projetoViewHolder = (ProjetoViewHolder) holder;
+        final ProjetoViewHolder projetoViewHolder = (ProjetoViewHolder) holder;
 
         final Projeto projeto = projetos.get(position);
         projetoViewHolder.mNomeProjeto.setText(projeto.getNome());
@@ -65,6 +73,39 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
                 intent.putExtra("idEquipe", idEquipe);
                 intent.putExtra("nomeEquipe", nomeEquipe);
                 context.startActivity(intent);
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Excluir Projeto " + projeto.getNome())
+                        .setMessage("Você deseja realmente excluir este projeto?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
+
+                                mRef.child("equipes").child(idEquipe).child("projetos").child(projeto.getId()).removeValue();
+                                mRef.child("usuarios").child(LoginActivity.idUsuario).child("projetos").child(projeto.getId()).removeValue();
+
+
+
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert).show();
+
+                return false;
             }
         });
 
