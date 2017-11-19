@@ -69,6 +69,9 @@ public class NovaEquipeActivity extends AppCompatActivity {
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         for (DataSnapshot item : dataSnapshot.getChildren()) {
                             usuario.setId(item.getKey());
+                            usuario.setNome(item.child("nome").getValue().toString());
+                            usuario.setSobrenome(item.child("sobrenome").getValue().toString());
+                            usuario.setNomeReferenciaUsuario(item.child("nomeReferenciaUsuario").getValue().toString());
                             Equipe equipe = new Equipe(null,nomeEquipe, descEquipe, usuario);
                             equipe.novaEquipe(usuario);
                             startActivity(new Intent(NovaEquipeActivity.this, MainActivity.class));

@@ -15,7 +15,6 @@ package talkhub.com.br.th;
         import android.view.View;
         import android.widget.EditText;
         import android.widget.ImageButton;
-        import android.widget.Toast;
 
         import com.google.firebase.auth.FirebaseAuth;
         import com.google.firebase.database.ChildEventListener;
@@ -69,7 +68,7 @@ public class ChatProjetoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_mural_equipe);
+        setContentView(R.layout.activity_chat_projeto);
 
         Bundle bundle = getIntent().getExtras();
         idProjeto = bundle.getString("idProjeto");

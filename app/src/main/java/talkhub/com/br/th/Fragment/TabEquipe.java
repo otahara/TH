@@ -132,14 +132,20 @@ public class TabEquipe extends Fragment {
                 for(DataSnapshot item: dataSnapshot.getChildren()) {
                     if (item.hasChild("nome") && item.hasChild("descricao")) {
 
-                        Equipe equipe = new Equipe();
-                        equipe.setId(item.getKey());
-                        equipe.setNome(item.child("nome").getValue().toString());
-                        equipe.setDescricao(item.child("descricao").getValue().toString());
 
-                        equipes.add(equipe);
 
-                        equipeListAdapter.notifyDataSetChanged();
+                                Equipe equipe = new Equipe();
+                                equipe.setId(item.getKey());
+                                equipe.setNome(item.child("nome").getValue().toString());
+                                equipe.setDescricao(item.child("descricao").getValue().toString());
+
+                                equipes.add(equipe);
+
+                                equipeListAdapter.notifyDataSetChanged();
+
+
+
+
                     }
                 }
                 progressDialog.dismiss();

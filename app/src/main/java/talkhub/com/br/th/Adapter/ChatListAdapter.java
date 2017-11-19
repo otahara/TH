@@ -16,6 +16,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.SimpleFormatter;
 
+import talkhub.com.br.th.CadastroActivity;
 import talkhub.com.br.th.Entities.ChatMensagem;
 import talkhub.com.br.th.R;
 import talkhub.com.br.th.ViewHolder.ChatViewHolder;
@@ -60,7 +61,7 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         ChatViewHolder chatViewHolder = (ChatViewHolder) holder;
 
         ChatMensagem chatMensagem = mensagens.get(position);
-        chatViewHolder.mBubbleMsg.setText(chatMensagem.getTexto());
+        chatViewHolder.mMensagem.setText(chatMensagem.getTexto());
 
         //Pega o float da data e transforma em uma string do tipo data
         Date date = new Date(chatMensagem.getHoraMsg());
@@ -71,11 +72,15 @@ public class ChatListAdapter extends RecyclerView.Adapter {
 
         //Verifica se a mensagem é do usuário logado, caso seja, o balão da mensagem é movido para a direita, caso não, ele fica na esquerda
         if(this.idUsuario.equals(chatMensagem.getIdUsuario())) {
-            chatViewHolder.mLLayoutMsg.setGravity(Gravity.RIGHT);
+            chatViewHolder.mMsgEu.setVisibility(View.VISIBLE);
+            chatViewHolder.mMsgTerceiro.setVisibility(View.GONE);
+            chatViewHolder.mLayout.setBackgroundColor(Color.rgb(133, 255,161));
             chatViewHolder.mNomeUsuario.setText("Eu");
 
+
         } else{
-            chatViewHolder.mLLayoutMsg.setGravity(Gravity.LEFT);
+            chatViewHolder.mMsgEu.setVisibility(View.GONE);
+            chatViewHolder.mMsgTerceiro.setVisibility(View.VISIBLE);
             chatViewHolder.mNomeUsuario.setText(chatMensagem.getNomeUsuario());
 
 

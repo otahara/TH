@@ -24,9 +24,7 @@ public class Equipe {
     private String nome;
     private String descricao;
     private Usuario usuarioCriador;
-//    private List<String> administradores;
-//    private List<String> membros;
-    private HashMap<String, Usuario> membros;
+
 
 
 
@@ -76,20 +74,21 @@ public class Equipe {
     public void novaEquipe(Usuario usuario){
 
         DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes");
-        DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
+        DatabaseReference
+                mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
 
 
 
         //Preenche o hashmap "membros" inserindo o usuário que está logado, pois este usuário já vai ser considerado
         //um membro do projeto
-        this.membros = new HashMap<String, Usuario>();
-        this.membros.put(usuario.getId(), usuario);
+
 
 
         //Cria um id para a equipe
         this.id = mRefEquipe.push().getKey();
         //Adiciona a nova equipe no documento de equipes
         mRefEquipe.child(this.id).setValue(this);
+        mRefEquipe.child(this.id).child("membros").child(usuario.getId()).setValue(usuario);
 
         //Embeda no documento "usuario" o id e o nome da equipe
         mRefUsuario.child(usuario.getId()).child("equipes").child(this.id).child("nome").setValue(this.nome);
