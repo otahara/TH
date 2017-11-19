@@ -16,6 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -23,11 +29,12 @@ public class LoginActivity extends AppCompatActivity {
     private static TextView tvCadastro;
     private static EditText mEmail;
     private static EditText mSenha;
+    public static String idUsuario;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
 
-    public void logar(String email, String senha) {
+    public void logar(final String email, String senha) {
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(senha)) {
 
@@ -42,7 +49,25 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, "Algo deu errado", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                        Query query = mRef.orderByChild("email").equalTo(email);
+
+                        query.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                for(DataSnapshot item : dataSnapshot.getChildren()){
+                                    idUsuario = item.getKey();
+                                }
+                                startActivity(new Intent(LoginActivity.this, MainActivity.class));
+
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+
+                            }
+                        });
+
 
                     }
                 }

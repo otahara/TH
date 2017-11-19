@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 import android.widget.Toolbar;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +31,7 @@ import talkhub.com.br.th.Entities.Projeto;
 public class ProjetosEquipeActivity extends AppCompatActivity {
 
     private DatabaseReference mRefProjetos;
+    private FirebaseAuth mAuth;
     private String idEquipe;
     private String nomeEquipe;
     private String descEquipe;
@@ -116,25 +118,37 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
 
 
 
-        mRefProjetos = FirebaseDatabase.getInstance().getReference().child("equipes")
-                .child(idEquipe).child("projetos");
-        Query query =  mRefProjetos;
+        mRefProjetos = FirebaseDatabase.getInstance().getReference().child("equipes").child(idEquipe).child("projetos");
+        mAuth = FirebaseAuth.getInstance();
 
-        query.addValueEventListener(new ValueEventListener() {
+
+
+        mRefProjetos.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 projetos.clear();
-                for(DataSnapshot item : dataSnapshot.getChildren()){
-                    Projeto projeto = new Projeto();
-                    if(item.hasChild("nome") && item.hasChild("descricao")) {
-                        projeto.setId(item.getKey());
-                        projeto.setNome(item.child("nome").getValue().toString());
-                        projeto.setDescricao(item.child("descricao").getValue().toString());
-                        projetos.add(projeto);
-                        projetoListAdapter.notifyDataSetChanged();
+                        for(DataSnapshot item : dataSnapshot.getChildren()){
+
+                            Boolean usuarioMembro = false;
+
+                            for(DataSnapshot itemMembro : item.child("membros").getChildren()){
+                                if(itemMembro.getKey().equals(LoginActivity.idUsuario)){
+                                    Projeto projeto = new Projeto();
+                                    if(item.hasChild("nome") && item.hasChild("descricao")) {
+                                        projeto.setId(item.getKey());
+                                        projeto.setNome(item.child("nome").getValue().toString());
+                                        projeto.setDescricao(item.child("descricao").getValue().toString());
+                                        projetos.add(projeto);
+                                        projetoListAdapter.notifyDataSetChanged();
+                                    }
+                                }
+                            }
+
+
+                        }
+
                     }
-                }
-            }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
