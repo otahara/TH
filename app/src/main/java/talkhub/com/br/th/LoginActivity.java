@@ -1,5 +1,6 @@
 package talkhub.com.br.th;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -32,31 +33,47 @@ public class LoginActivity extends AppCompatActivity {
     public static String idUsuario;
     private FirebaseAuth mAuth;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private ProgressDialog progressDialog;
 
 
     public void logar(final String email, String senha) {
 
         if (TextUtils.isEmpty(email) || TextUtils.isEmpty(senha)) {
 
+
+
             Toast.makeText(this, "Algum campo ficou em branco", Toast.LENGTH_SHORT).show();
         } else {
-
-
+            progressDialog.setTitle("Entrando");
+            progressDialog.show();
+            btnLogin.setEnabled(false);
+            mEmail.setEnabled(false);
+            mSenha.setEnabled(false);
             mAuth.signInWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                     if (!task.isSuccessful()) {
+                        mEmail.setEnabled(true);
+                        mSenha.setEnabled(true);
+                        btnLogin.setEnabled(true);
+                        progressDialog.dismiss();
                         Toast.makeText(LoginActivity.this, "Algo deu errado", Toast.LENGTH_SHORT).show();
 
                     } else {
+
+                        progressDialog.dismiss();
+                        progressDialog.setTitle("Preparando ambiente");
+                        progressDialog.show();
                         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
                         Query query = mRef.orderByChild("email").equalTo(email);
+
 
                         query.addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
                                 for(DataSnapshot item : dataSnapshot.getChildren()){
                                     idUsuario = item.getKey();
+                                    progressDialog.dismiss();
                                 }
                                 startActivity(new Intent(LoginActivity.this, MainActivity.class));
 
@@ -89,6 +106,7 @@ public class LoginActivity extends AppCompatActivity {
         mSenha = (EditText) findViewById(R.id.etSenha);
         btnLogin = (Button) findViewById(R.id.btnLogin);
         tvCadastro = (TextView) findViewById(R.id.tvCadastro);
+        progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                 String senha = mSenha.getText().toString();
 
                 logar(email, senha);
+
             }
         });
 

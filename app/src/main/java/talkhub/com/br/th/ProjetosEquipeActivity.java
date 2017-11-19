@@ -1,5 +1,6 @@
 package talkhub.com.br.th;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.v4.app.NavUtils;
@@ -121,7 +122,9 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
         mRefProjetos = FirebaseDatabase.getInstance().getReference().child("equipes").child(idEquipe).child("projetos");
         mAuth = FirebaseAuth.getInstance();
 
-
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Carregando projetos");
+        progressDialog.show();
 
         mRefProjetos.addValueEventListener(new ValueEventListener() {
             @Override
@@ -129,7 +132,6 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
                 projetos.clear();
                         for(DataSnapshot item : dataSnapshot.getChildren()){
 
-                            Boolean usuarioMembro = false;
 
                             for(DataSnapshot itemMembro : item.child("membros").getChildren()){
                                 if(itemMembro.getKey().equals(LoginActivity.idUsuario)){
@@ -146,6 +148,7 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
 
 
                         }
+                        progressDialog.dismiss();
 
                     }
 

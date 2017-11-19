@@ -1,6 +1,7 @@
 package talkhub.com.br.th.Fragment;
 
 import android.app.DownloadManager;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
@@ -27,6 +28,7 @@ import java.util.List;
 import talkhub.com.br.th.Adapter.EquipeListAdapter;
 import talkhub.com.br.th.Entities.Equipe;
 import talkhub.com.br.th.Entities.Usuario;
+import talkhub.com.br.th.LoginActivity;
 import talkhub.com.br.th.R;
 
 
@@ -117,31 +119,39 @@ public class TabEquipe extends Fragment {
          final EquipeListAdapter equipeListAdapter = new EquipeListAdapter(equipes,getContext());
         recyclerView.setAdapter(equipeListAdapter);
 
-        Query query = mRefUsuario.child("usuarios").orderByChild("email").equalTo(emailUsuarioLogado);
+        Query query = mRefUsuario.child("usuarios").child(LoginActivity.idUsuario).child("equipes");
 
-        query.addListenerForSingleValueEvent(new ValueEventListener() {
+        final ProgressDialog progressDialog = new ProgressDialog(getContext());
+        progressDialog.setMessage("Carregando equipes do usuário");
+        progressDialog.show();
+
+        query.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                equipes.clear();
                 for(DataSnapshot item: dataSnapshot.getChildren()){
-                    for (DataSnapshot equipeItem: item.child("equipes").getChildren()){
                         Equipe equipe = new Equipe();
-
-                        equipe.setId(equipeItem.getKey());
-                        equipe.setNome(equipeItem.child("nome").getValue().toString());
-                        equipe.setDescricao(equipeItem.child("descricao").getValue().toString());
+                        equipe.setId(item.getKey());
+                        equipe.setNome(item.child("nome").getValue().toString());
+                        equipe.setDescricao(item.child("descricao").getValue().toString());
 
                         equipes.add(equipe);
 
                         equipeListAdapter.notifyDataSetChanged();
                     }
-                }
+                progressDialog.dismiss();
+
             }
+
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
             }
         });
+
+
 
         return view;
     }
