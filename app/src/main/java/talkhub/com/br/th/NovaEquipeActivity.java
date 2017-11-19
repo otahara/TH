@@ -72,6 +72,7 @@ public class NovaEquipeActivity extends AppCompatActivity {
                             Equipe equipe = new Equipe(null,nomeEquipe, descEquipe, usuario);
                             equipe.novaEquipe(usuario);
                             startActivity(new Intent(NovaEquipeActivity.this, MainActivity.class));
+
                         }
                     }
 

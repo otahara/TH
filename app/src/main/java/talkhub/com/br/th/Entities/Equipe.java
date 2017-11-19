@@ -1,10 +1,19 @@
 package talkhub.com.br.th.Entities;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.HashMap;
 import java.util.List;
+
+import talkhub.com.br.th.MainActivity;
+import talkhub.com.br.th.ProjetosEquipeActivity;
 
 /**
  * Created by ferna on 26/08/2017.
@@ -18,6 +27,8 @@ public class Equipe {
 //    private List<String> administradores;
 //    private List<String> membros;
     private HashMap<String, Usuario> membros;
+
+
 
     public Equipe() {
     }
@@ -67,6 +78,8 @@ public class Equipe {
         DatabaseReference mRefEquipe = FirebaseDatabase.getInstance().getReference().child("equipes");
         DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
 
+
+
         //Preenche o hashmap "membros" inserindo o usuário que está logado, pois este usuário já vai ser considerado
         //um membro do projeto
         this.membros = new HashMap<String, Usuario>();
@@ -85,6 +98,8 @@ public class Equipe {
 
 
     }
+
+
 
     public void novoMembro(String idEquipe, String nomeEquipe, String descEquipe,
                            String emailUsuario, String idUsuario ){

@@ -45,6 +45,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(this, "Algum campo ficou em branco", Toast.LENGTH_SHORT).show();
         } else {
             progressDialog.setTitle("Entrando");
+            progressDialog.setMessage("Verificando credenciais");
             progressDialog.show();
             btnLogin.setEnabled(false);
             mEmail.setEnabled(false);
@@ -61,8 +62,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     } else {
 
-                        progressDialog.dismiss();
-                        progressDialog.setTitle("Preparando ambiente");
+                        progressDialog.setMessage("Preparando ambiente");
                         progressDialog.show();
                         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
                         Query query = mRef.orderByChild("email").equalTo(email);

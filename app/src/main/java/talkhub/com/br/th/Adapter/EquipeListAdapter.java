@@ -90,6 +90,7 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
 
 
 
+
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {

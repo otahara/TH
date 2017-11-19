@@ -1,5 +1,6 @@
 package talkhub.com.br.th;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +16,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import talkhub.com.br.th.Entities.Usuario;
 
@@ -53,8 +58,7 @@ public class CadastroActivity extends AppCompatActivity {
         mAuthListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                if(firebaseAuth.getCurrentUser() != null)
-                startActivity(new Intent(CadastroActivity.this, MainActivity.class));
+
             }
         };
 
@@ -89,18 +93,53 @@ public class CadastroActivity extends AppCompatActivity {
 
     public void cadastrar(final  String  nome, final String sobreNome, final String email, final String companhia, final String senha) {
 
+        final ProgressDialog pb = new ProgressDialog(this);
+        pb.setTitle("Cadastrando ");
+        pb.setMessage("Verificando dados");
+        pb.show();
         mAuth.createUserWithEmailAndPassword(email, senha).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (!task.isSuccessful()) {
+                    pb.dismiss();
                     Toast.makeText(CadastroActivity.this, "Algo deu errado", Toast.LENGTH_SHORT).show();
                 } else{
+                    pb.setMessage("Finalizando cadastro");
                     String nomeReferenciaUsuario = nome.toLowerCase() + sobreNome.toUpperCase().charAt(0) + "-"+companhia.toUpperCase();
                     String keyUsuario =  mRef.push().getKey();
 
                     Usuario usuario = new Usuario(email, nome, sobreNome,nomeReferenciaUsuario, keyUsuario);
-                    mRef.child(keyUsuario).setValue(usuario);
+                    mRef.child(keyUsuario).setValue(usuario).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            DatabaseReference mRef = FirebaseDatabase.getInstance().getReference().child("usuarios");
+                            Query query = mRef.orderByChild("email").equalTo(email);
+
+
+                            query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+                                    for(DataSnapshot item : dataSnapshot.getChildren()){
+                                        LoginActivity.idUsuario = item.getKey();
+                                        pb.dismiss();
+                                        if(mAuth.getCurrentUser() != null)
+                                            startActivity(new Intent(CadastroActivity.this, MainActivity.class));
+
+                                    }
+
+                                }
+
+                                @Override
+                                public void onCancelled(DatabaseError databaseError) {
+
+                                }
+                            });
+
+
+                        }
+                    });
+
                 }
 
             }

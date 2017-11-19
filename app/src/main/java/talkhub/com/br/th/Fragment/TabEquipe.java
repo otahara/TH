@@ -129,7 +129,9 @@ public class TabEquipe extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 equipes.clear();
-                for(DataSnapshot item: dataSnapshot.getChildren()){
+                for(DataSnapshot item: dataSnapshot.getChildren()) {
+                    if (item.hasChild("nome") && item.hasChild("descricao")) {
+
                         Equipe equipe = new Equipe();
                         equipe.setId(item.getKey());
                         equipe.setNome(item.child("nome").getValue().toString());
@@ -139,6 +141,7 @@ public class TabEquipe extends Fragment {
 
                         equipeListAdapter.notifyDataSetChanged();
                     }
+                }
                 progressDialog.dismiss();
 
             }
