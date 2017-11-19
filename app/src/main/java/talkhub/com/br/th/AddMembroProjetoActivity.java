@@ -31,6 +31,8 @@ public class AddMembroProjetoActivity extends AppCompatActivity {
     private EditText mPesquisa;
     private Button mBtnPesquisar;
     private List<Usuario> usuarios = new ArrayList<Usuario>();
+    private Long membrosCount ;
+
 
 
     private String idProjeto;
@@ -119,6 +121,8 @@ public class AddMembroProjetoActivity extends AppCompatActivity {
 
     }
 
+
+
     public void pesquisaUsuarios(final String stringPesquisa, final InserirUsuarioProjetoListAdapter usuarioListAdapter){
 
         DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference().child("usuarios");
@@ -126,6 +130,9 @@ public class AddMembroProjetoActivity extends AppCompatActivity {
         mRefUsuario.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+
                 for(DataSnapshot item : dataSnapshot.getChildren()){
 
                     if(item.child("nomeReferenciaUsuario").getValue().toString().contains(stringPesquisa)){

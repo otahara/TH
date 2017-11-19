@@ -18,6 +18,7 @@ public class UsuarioViewHolder extends RecyclerView.ViewHolder {
     final public TextView mSobrenomeUsuario;
     final public TextView mEmailUsuario;
     final public TextView mNomeReferenciaUsuario;
+    final public TextView mMembro;
 
 
     public UsuarioViewHolder(View itemView) {
@@ -26,6 +27,7 @@ public class UsuarioViewHolder extends RecyclerView.ViewHolder {
         mSobrenomeUsuario = (TextView) itemView.findViewById(R.id.tv_addMembro_sobrenome);
         mEmailUsuario = (TextView) itemView.findViewById(R.id.tv_addMembro_email);
         mNomeReferenciaUsuario = (TextView) itemView.findViewById(R.id.tv_addMembro_nomeReferencia);
+        mMembro = (TextView) itemView.findViewById(R.id.tv_membro);
 
 
 

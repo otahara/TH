@@ -134,12 +134,12 @@ public class Projeto {
 
             //Embeda o usuário no projeto
             DatabaseReference mRefProjeto = FirebaseDatabase.getInstance().getReference()
-                    .child("equipes").child(idEquipe).child("projetos").child(this.getId()).child("membros").child(usuario.getId());
+                    .child("equipes").child(idEquipe).child("projetos").child(this.id).child("membros").child(usuario.getId());
             mRefProjeto.setValue(usuario);
 
             //Embeda o projeto no usuário
         DatabaseReference mRefUsuario = FirebaseDatabase.getInstance().getReference()
-                .child("usuarios").child(usuario.getId()).child("projetos");
+                .child("usuarios").child(usuario.getId()).child("projetos").child(this.id);
         mRefUsuario.setValue(this);
 
 

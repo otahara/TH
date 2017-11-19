@@ -35,6 +35,8 @@
                 android:text="Sobrenome"
                 android:textColor="@color/bgcolor"
                 android:textSize="25sp" />
+
+
         </LinearLayout>
 
         <LinearLayout
@@ -54,6 +56,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="usuario" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_membro"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:layout_gravity="end"
+                android:textAlignment="textEnd"
+                android:text="Membro"
+                android:textSize="15sp"
+                android:textColor="#20c462"
+                android:visibility="invisible"
+                />
 
 
         </LinearLayout>

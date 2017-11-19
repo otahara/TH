@@ -94,12 +94,15 @@ public class ChatProjetoActivity extends AppCompatActivity {
                 switch (item.getItemId()){
                     
                     case R.id.menuAdicionarMembros:
-                        Intent intent = new Intent(ChatProjetoActivity.this, AddMembroProjetoActivity.class);
-                        intent.putExtra("idEquipe", idEquipe);
-                        intent.putExtra("nomeEquipe", nomeEquipe);
-                        intent.putExtra("idProjeto", idProjeto);
-                        intent.putExtra("nomeProjeto", nomeProjeto);
-                        startActivity(intent);
+                                Intent intent = new Intent(ChatProjetoActivity.this, AddMembroProjetoActivity.class);
+                                intent.putExtra("idEquipe", idEquipe);
+                                intent.putExtra("nomeEquipe", nomeEquipe);
+                                intent.putExtra("idProjeto", idProjeto);
+                                intent.putExtra("nomeProjeto", nomeProjeto);
+                                startActivity(intent);
+
+
+
                         return true;
                     
                 }
