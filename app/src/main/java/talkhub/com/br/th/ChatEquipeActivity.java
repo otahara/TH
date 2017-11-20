@@ -62,7 +62,7 @@ public class ChatEquipeActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    usuario.setId(dataSnapshot.getKey());
+                    usuario.setId(LoginActivity.idUsuario);
                     usuario.setNome(dataSnapshot.child("nome").getValue().toString());
                     usuario.setSobrenome(dataSnapshot.child("sobrenome").getValue().toString());
 
@@ -130,16 +130,20 @@ public class ChatEquipeActivity extends AppCompatActivity {
         mRefMsg.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ChatMensagem msg = new ChatMensagem();
-                msg.setId(dataSnapshot.getKey());
-                msg.setIdUsuario(dataSnapshot.child("idUsuario").getValue().toString());
-                msg.setNomeUsuario(dataSnapshot.child("nomeUsuario").getValue().toString());
-                msg.setSobrenomeUsuario(dataSnapshot.child("sobrenomeUsuario").getValue().toString());
-                msg.setTexto(dataSnapshot.child("texto").getValue().toString());
-                msg.setHoraMsg(Long.valueOf(dataSnapshot.child("horaMsg").getValue().toString()));
-                mensagens.add(msg);
-                chatListAdapter.notifyDataSetChanged();
-                recyclerView.scrollToPosition(mensagens.size() -1);
+                //O if abaixo é para evitar que o app tente ler o child que contém os usuários que ainda não leram as mensagens
+                //Caso o app tente ler este child, vai dar pau pois ele vai tentar pegar dados de horário por exemplo, e isto não existe neste child
+                if(!dataSnapshot.getKey().equals("leitura_usuarios_pendentes")) {
+                    ChatMensagem msg = new ChatMensagem();
+                    msg.setId(dataSnapshot.getKey());
+                    msg.setIdUsuario(dataSnapshot.child("idUsuario").getValue().toString());
+                    msg.setNomeUsuario(dataSnapshot.child("nomeUsuario").getValue().toString());
+                    msg.setSobrenomeUsuario(dataSnapshot.child("sobrenomeUsuario").getValue().toString());
+                    msg.setTexto(dataSnapshot.child("texto").getValue().toString());
+                    msg.setHoraMsg(Long.valueOf(dataSnapshot.child("horaMsg").getValue().toString()));
+                    mensagens.add(msg);
+                    chatListAdapter.notifyDataSetChanged();
+                    recyclerView.scrollToPosition(mensagens.size() - 1);
+                }
             }
 
             @Override
