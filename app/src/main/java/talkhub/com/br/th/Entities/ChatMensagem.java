@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import talkhub.com.br.th.LoginActivity;
+
 /**
  * Created by ferna on 11/11/2017.
  */
@@ -117,8 +119,9 @@ public class ChatMensagem {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot item : dataSnapshot.getChildren()) {
                     //Coloca o usuário lido como pendente
+                    if(!item.getKey().equals(LoginActivity.idUsuario))
+                        mRefMsgPendente.child(item.getKey()).setValue(item.getValue().toString());
 
-                    mRefMsgPendente.child(item.getKey()).setValue(item.getValue().toString());
 
                 }
             }

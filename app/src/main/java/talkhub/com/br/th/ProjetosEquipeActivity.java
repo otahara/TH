@@ -38,6 +38,10 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
     private String descEquipe;
     private List<Projeto> projetos = new ArrayList<Projeto>();
 
+    private Menu menu;
+
+
+
 
 
 
@@ -62,6 +66,7 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
         }
 
         tbProjetos.inflateMenu(R.menu.menu_equipe);
+
 
 
         tbProjetos.setOnMenuItemClickListener(new android.support.v7.widget.Toolbar.OnMenuItemClickListener() {
@@ -174,10 +179,53 @@ public class ProjetosEquipeActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        verificaNotificacao();
+    }
+
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_equipe, menu);
+        this.menu = menu;
+        verificaNotificacao();
+
         return true;
     }
+
+
+
+
+    private void verificaNotificacao() {
+
+
+        //Referencia que irá verificar se o usuário está como pendente na leitura de mensagens da equipe
+        DatabaseReference mRefLeitura = FirebaseDatabase.getInstance().getReference().child("mensagens").child("mensagens_equipe").child(idEquipe)
+                .child("leitura_usuarios_pendentes");
+
+        mRefLeitura.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(LoginActivity.idUsuario)){
+                    MenuItem item = menu.findItem(R.id.menuChatEquipe);
+                    item.setIcon(R.drawable.ic_mural_notificacao_24dp);
+                } else{
+                    MenuItem item = menu.findItem(R.id.menuChatEquipe);
+                    item.setIcon(R.drawable.ic_mural_24dp);
+                }
+
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+
 
 
 }

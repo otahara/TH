@@ -127,6 +127,9 @@ public class ChatEquipeActivity extends AppCompatActivity {
         DatabaseReference mRefMsg = FirebaseDatabase.getInstance().getReference().child("mensagens")
                 .child("mensagens_equipe").child(idEquipe);
 
+        confirmaLeituraMensagem();
+
+
         mRefMsg.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
@@ -170,6 +173,17 @@ public class ChatEquipeActivity extends AppCompatActivity {
 
 
 
+
+    }
+
+    public void confirmaLeituraMensagem(){
+
+        DatabaseReference mRefUsuarioPendente = FirebaseDatabase.getInstance().getReference().child("mensagens")
+                .child("mensagens_equipe").child(idEquipe).child("leitura_usuarios_pendentes").child(LoginActivity.idUsuario);
+
+
+
+        mRefUsuarioPendente.removeValue();
 
     }
 }

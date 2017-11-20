@@ -39,6 +39,7 @@ public class ChatProjetoActivity extends AppCompatActivity {
     private String idEquipe;
     private String nomeEquipe;
 
+
     private ImageButton mButtonEnviarMensagem;
     private EditText mEditTextMensagem;
 
