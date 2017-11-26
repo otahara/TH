@@ -91,12 +91,33 @@ public class ChatMensagem {
 
     public void novaMensagemProjeto(String idProjeto, String idEquipe){
 
+        //Cria a nova mensagem no firebase
         DatabaseReference mRefEnviaMsg = FirebaseDatabase.getInstance().getReference();
-
-
-
         mRefEnviaMsg.child("mensagens").child("mensagens_projeto").child(idProjeto).push().setValue(this);
 
+        //Insere usuários pendentes para leitura da mensagem
+            //Referencia do nó que irá receber os usuários que devem ler a mensagem
+        final DatabaseReference mRefMsgPendente = FirebaseDatabase.getInstance().getReference()
+                .child("mensagens").child("mensagens_projeto").child(idProjeto).child("leitura_usuarios_pendentes");
+
+        //Referencia que irá pegar os usuários da equié e inserir em uma lista, esta será usada para inserir os dados em usuários pendentes
+        DatabaseReference mRefUsuariosProjeto = FirebaseDatabase.getInstance().getReference()
+                .child("equipes").child(idEquipe).child("projetos").child(idProjeto).child("membros");
+        mRefUsuariosProjeto.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot item : dataSnapshot.getChildren()){
+                    if(!item.getKey().equals(LoginActivity.idUsuario)){
+                        mRefMsgPendente.child(item.getKey()).setValue(item.child("email").getValue().toString());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
     }
 

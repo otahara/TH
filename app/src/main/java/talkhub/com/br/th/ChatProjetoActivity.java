@@ -197,6 +197,8 @@ public class ChatProjetoActivity extends AppCompatActivity {
         final ChatListAdapter chatListAdapter = new ChatListAdapter(mensagens, this);
         recyclerView.setAdapter(chatListAdapter);
 
+        confirmaLeituraMensagem();
+
 
         mRefMsg = FirebaseDatabase.getInstance().getReference().child("mensagens").child("mensagens_projeto").child(idProjeto);
 
@@ -204,16 +206,19 @@ public class ChatProjetoActivity extends AppCompatActivity {
         mRefMsg.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                ChatMensagem msg = new ChatMensagem();
-                msg.setId(dataSnapshot.getKey());
-                msg.setIdUsuario(dataSnapshot.child("idUsuario").getValue().toString());
-                msg.setNomeUsuario(dataSnapshot.child("nomeUsuario").getValue().toString());
-                msg.setSobrenomeUsuario(dataSnapshot.child("sobrenomeUsuario").getValue().toString());
-                msg.setTexto(dataSnapshot.child("texto").getValue().toString());
-                msg.setHoraMsg(Long.valueOf(dataSnapshot.child("horaMsg").getValue().toString()));
-                mensagens.add(msg);
-                chatListAdapter.notifyDataSetChanged();
-                recyclerView.scrollToPosition(mensagens.size() -1);
+                if(!dataSnapshot.getKey().equals("leitura_usuarios_pendentes")) {
+
+                    ChatMensagem msg = new ChatMensagem();
+                    msg.setId(dataSnapshot.getKey());
+                    msg.setIdUsuario(dataSnapshot.child("idUsuario").getValue().toString());
+                    msg.setNomeUsuario(dataSnapshot.child("nomeUsuario").getValue().toString());
+                    msg.setSobrenomeUsuario(dataSnapshot.child("sobrenomeUsuario").getValue().toString());
+                    msg.setTexto(dataSnapshot.child("texto").getValue().toString());
+                    msg.setHoraMsg(Long.valueOf(dataSnapshot.child("horaMsg").getValue().toString()));
+                    mensagens.add(msg);
+                    chatListAdapter.notifyDataSetChanged();
+                    recyclerView.scrollToPosition(mensagens.size() - 1);
+                }
 
 
 
@@ -239,6 +244,17 @@ public class ChatProjetoActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void confirmaLeituraMensagem(){
+
+        DatabaseReference mRefUsuarioPendente = FirebaseDatabase.getInstance().getReference().child("mensagens")
+                .child("mensagens_projeto").child(idProjeto).child("leitura_usuarios_pendentes").child(LoginActivity.idUsuario);
+
+
+
+        mRefUsuarioPendente.removeValue();
+
     }
     public boolean onCreateOptionsMenu(Menu menu){
         getMenuInflater().inflate(R.menu.menu_projeto, menu);
