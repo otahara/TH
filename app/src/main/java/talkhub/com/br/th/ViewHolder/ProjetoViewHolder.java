@@ -2,6 +2,7 @@ package talkhub.com.br.th.ViewHolder;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import talkhub.com.br.th.R;
@@ -14,10 +15,12 @@ public class ProjetoViewHolder extends RecyclerView.ViewHolder {
 
     final public TextView mNomeProjeto;
     final public TextView mDescProjeto;
+    final public ImageView mAlert;
 
     public ProjetoViewHolder(View itemView) {
         super(itemView);
         mNomeProjeto = (TextView) itemView.findViewById(R.id.tv_nome_projeto);
         mDescProjeto = (TextView) itemView.findViewById(R.id.tv_desc_projeto);
+        mAlert = (ImageView) itemView.findViewById(R.id.img_alert_projeto);
     }
 }

@@ -11,8 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -62,6 +65,24 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
         final Projeto projeto = projetos.get(position);
         projetoViewHolder.mNomeProjeto.setText(projeto.getNome());
         projetoViewHolder.mDescProjeto.setText(projeto.getDescricao());
+
+        //Verifica se o projeto possui alguma mensagem não lida pelo usuário
+        DatabaseReference mRefUsuarioPendente = FirebaseDatabase.getInstance().getReference()
+                .child("mensagens").child("mensagens_projeto").child(projeto.getId()).child("leitura_usuarios_pendentes");
+
+        mRefUsuarioPendente.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(LoginActivity.idUsuario)){
+                    projetoViewHolder.mAlert.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
