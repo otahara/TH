@@ -11,8 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,13 +56,31 @@ public class EquipeListAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        EquipeViewHolder equipeViewHolder = (EquipeViewHolder) holder;
+        final EquipeViewHolder equipeViewHolder = (EquipeViewHolder) holder;
 
 
         final Equipe equipe = equipes.get(position);
         equipeViewHolder.mNomeEquipe.setText(equipe.getNome());
         equipeViewHolder.mDescEquipe.setText(equipe.getDescricao());
         holder.itemView.setTag(equipe.getId());
+
+        //Verifica se existe pendência de leitura em alguma equipe, caso haja, será exibido um ícone de notificação
+        DatabaseReference mRefUsuarioPendente = FirebaseDatabase.getInstance().getReference()
+                .child("mensagens").child("mensagens_equipe").child(equipe.getId()).child("leitura_usuarios_pendentes");
+
+        mRefUsuarioPendente.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if(dataSnapshot.hasChild(LoginActivity.idUsuario)){
+                    equipeViewHolder.mAlert.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
