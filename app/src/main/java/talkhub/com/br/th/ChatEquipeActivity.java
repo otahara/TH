@@ -1,5 +1,6 @@
 package talkhub.com.br.th;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -37,6 +41,22 @@ public class ChatEquipeActivity extends AppCompatActivity {
     private List<ChatMensagem> mensagens = new ArrayList<ChatMensagem>();
 
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            // Respond to the action bar's Up/Home button
+            case android.R.id.home:
+                Intent intent = new Intent(ChatEquipeActivity.this, ProjetosEquipeActivity.class);
+                intent.putExtra("idEquipe", idEquipe);
+                intent.putExtra("nomeEquipe", nomeEquipe);
+                startActivity(intent);
+                break;
+        }
+        return true;
+
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +67,14 @@ public class ChatEquipeActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         idEquipe = bundle.getString("idEquipe");
         nomeEquipe = bundle.getString("nomeEquipe");
+
+        android.support.v7.widget.Toolbar toolbar = (android.support.v7.widget.Toolbar) findViewById(R.id.tb_muralequipe);
+        toolbar.setTitle(nomeEquipe);
+
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
 
         mButtonEnviarMensagem = (ImageButton) findViewById(R.id.bt_enviar_msg_chat_equipe);
         mEditTextMensagem = (EditText) findViewById(R.id.et_Mensagem_chat_equipe);
@@ -185,5 +213,10 @@ public class ChatEquipeActivity extends AppCompatActivity {
 
         mRefUsuarioPendente.removeValue();
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu){
+        getMenuInflater().inflate(R.menu.menu_equipe, menu);
+        return true;
     }
 }

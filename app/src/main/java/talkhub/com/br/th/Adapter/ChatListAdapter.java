@@ -63,6 +63,8 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         ChatMensagem chatMensagem = mensagens.get(position);
         chatViewHolder.mMensagem.setText(chatMensagem.getTexto());
 
+
+
         //Pega o float da data e transforma em uma string do tipo data
         Date date = new Date(chatMensagem.getHoraMsg());
         String dataFormatada = new SimpleDateFormat("dd-MM-yy HH:mm").format(date);
@@ -74,13 +76,15 @@ public class ChatListAdapter extends RecyclerView.Adapter {
         if(this.idUsuario.equals(chatMensagem.getIdUsuario())) {
             chatViewHolder.mMsgEu.setVisibility(View.VISIBLE);
             chatViewHolder.mMsgTerceiro.setVisibility(View.GONE);
-            chatViewHolder.mLayout.setBackgroundColor(Color.rgb(133, 255,161));
+            chatViewHolder. mLayout.setBackgroundColor(Color.rgb(133, 255,161));
+
             chatViewHolder.mNomeUsuario.setText("Eu");
 
 
         } else{
             chatViewHolder.mMsgEu.setVisibility(View.GONE);
             chatViewHolder.mMsgTerceiro.setVisibility(View.VISIBLE);
+            chatViewHolder.mLayout.setBackgroundColor(Color.rgb(227, 228, 228));
             chatViewHolder.mNomeUsuario.setText(chatMensagem.getNomeUsuario());
 
 
