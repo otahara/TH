@@ -16,7 +16,7 @@ import talkhub.com.br.th.LoginActivity;
  * Created by ferna on 11/11/2017.
  */
 
-public class ChatMensagem {
+public class MensagemChat {
 
     private String texto;
     private String id;
@@ -28,7 +28,7 @@ public class ChatMensagem {
 
 
 
-    public ChatMensagem(String texto, Usuario usuario) {
+    public MensagemChat(String texto, Usuario usuario) {
         this.texto = texto;
         this.idUsuario = usuario.getId();
         this.nomeUsuario = usuario.getNome();
@@ -38,7 +38,7 @@ public class ChatMensagem {
     }
 
 
-    public ChatMensagem() {
+    public MensagemChat() {
     }
 
     public String getTexto() {

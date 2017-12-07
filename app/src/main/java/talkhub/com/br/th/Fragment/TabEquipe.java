@@ -116,6 +116,8 @@ public class TabEquipe extends Fragment {
 
 
 
+
+
          final EquipeListAdapter equipeListAdapter = new EquipeListAdapter(equipes,getContext());
         recyclerView.setAdapter(equipeListAdapter);
 

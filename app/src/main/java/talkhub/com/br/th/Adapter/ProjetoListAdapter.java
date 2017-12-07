@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
@@ -43,6 +44,11 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
         this.context = context;
         this.idEquipe = idEquipe;
         this.nomeEquipe = nomeEquipe;
+    }
+
+    public ProjetoListAdapter(List<Projeto> projetos, Context context) {
+        this.projetos = projetos;
+        this.context = context;
     }
 
     @Override
@@ -91,9 +97,38 @@ public class  ProjetoListAdapter extends RecyclerView.Adapter {
                 Intent intent = new Intent(context, ChatProjetoActivity.class);
                 intent.putExtra("idProjeto", projeto.getId());
                 intent.putExtra("nomeProjeto", projeto.getNome());
+                intent.putExtra("descProjeto", projeto.getDescricao());
                 intent.putExtra("idEquipe", idEquipe);
-                intent.putExtra("nomeEquipe", nomeEquipe);
-                context.startActivity(intent);
+
+                if(nomeEquipe != null){
+                    intent.putExtra("nomeEquipe", nomeEquipe);
+                    context.startActivity(intent);
+                }
+                else{
+                    DatabaseReference mRefEquipeProjeto = FirebaseDatabase.getInstance().getReference().child("equipes")
+                            .child(projeto.getIdEquipe()).child("nome");
+
+                    mRefEquipeProjeto.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            nomeEquipe = dataSnapshot.getValue().toString();
+                            Intent intent = new Intent(context, ChatProjetoActivity.class);
+                            intent.putExtra("idProjeto", projeto.getId());
+                            intent.putExtra("nomeProjeto", projeto.getNome());
+                            intent.putExtra("descProjeto", projeto.getDescricao());
+                            intent.putExtra("idEquipe", projeto.getIdEquipe());
+                            intent.putExtra("nomeEquipe", nomeEquipe);
+                            context.startActivity(intent);
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+
+
             }
         });
 

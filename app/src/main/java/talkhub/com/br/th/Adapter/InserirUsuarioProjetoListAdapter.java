@@ -116,7 +116,9 @@ public class InserirUsuarioProjetoListAdapter extends RecyclerView.Adapter {
                                 public void onClick(DialogInterface dialog, int which) {
                                     Projeto projeto = new Projeto();
                                     projeto.setId(idProjeto);
+                                    projeto.setIdEquipe(idEquipe);
                                     projeto.setNome(nomeProjeto);
+                                    projeto.setDescricao(descProjeto);
                                     projeto.novoMembro(idEquipe, usuario);
                                     usuarioViewHolder.mMembro.setVisibility(View.VISIBLE);
 

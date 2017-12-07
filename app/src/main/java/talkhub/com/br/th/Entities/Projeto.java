@@ -1,7 +1,6 @@
 package talkhub.com.br.th.Entities;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -20,20 +19,17 @@ public class Projeto {
     private String nome;
     private String descricao;
     private String usuarioCriador;
-    private List<String> administradores;
-    private List<String> membros;
+    private String idEquipe;
 
     public Projeto() {
     }
 
     public Projeto(String id, String nome, String descricao, String usuarioCriador,
-                   List<String> administradores, List<String> membros) {
+                    List<String> membros) {
         this.id = id;
         this.nome = nome;
         this.descricao = descricao;
         this.usuarioCriador = usuarioCriador;
-        this.administradores = administradores;
-        this.membros = membros;
     }
 
     public String getId() {
@@ -60,6 +56,14 @@ public class Projeto {
         this.descricao = descricao;
     }
 
+    public String getIdEquipe() {
+        return idEquipe;
+    }
+
+    public void setIdEquipe(String idEquipe) {
+        this.idEquipe = idEquipe;
+    }
+
     public String getUsuarioCriador() {
         return usuarioCriador;
     }
@@ -68,21 +72,6 @@ public class Projeto {
         this.usuarioCriador = usuarioCriador;
     }
 
-    public List<String> getAdministradores() {
-        return administradores;
-    }
-
-    public void setAdministradores(List<String> administradores) {
-        this.administradores = administradores;
-    }
-
-    public List<String> getMembros() {
-        return membros;
-    }
-
-    public void setMembros(List<String> membros) {
-        this.membros = membros;
-    }
 
     public void novoProjeto(final String idEquipe, final Usuario usuario) {
         final DatabaseReference mRefProjeto = FirebaseDatabase.getInstance().getReference().child("projetos");
@@ -108,8 +97,10 @@ public class Projeto {
                     //Cria um id para o projeto
                     String idProjeto = mRefProjeto.push().getKey();
 
-                    //Embeda no usuário logado, o id e o nome do novo projeto
-                    mRefUsuario.child(idUsuarioLogado).child("projetos").child(idProjeto).setValue(nomeProjeto);
+                    //Embeda no usuário logado, o id e o nome do novo projeto, id da equipe e nome da equipe
+                    mRefUsuario.child(idUsuarioLogado).child("projetos").child(idProjeto).child("nome").setValue(nomeProjeto);
+                    mRefUsuario.child(idUsuarioLogado).child("projetos").child(idProjeto).child("descricao").setValue(descProjeto);
+                    mRefUsuario.child(idUsuarioLogado).child("projetos").child(idProjeto).child("idEquipe").setValue(idEquipe);
 
                     //Embeda na equipe o id e o nome do novo projeto
                     mRefEquipe.child(idEquipe).child("projetos").child(idProjeto).child("nome")

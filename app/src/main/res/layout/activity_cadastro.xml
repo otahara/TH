@@ -47,7 +47,7 @@
         <EditText
             android:id="@+id/etCompanhia"
             style="@style/editText_style"
-            android:hint="Companhia"
+            android:hint="Empresa"
             android:inputType="textPersonName" />
 
         <EditText

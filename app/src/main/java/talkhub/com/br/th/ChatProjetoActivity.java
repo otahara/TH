@@ -29,15 +29,17 @@ package talkhub.com.br.th;
         import java.util.List;
 
         import talkhub.com.br.th.Adapter.ChatListAdapter;
-        import talkhub.com.br.th.Entities.ChatMensagem;
+        import talkhub.com.br.th.Entities.MensagemChat;
         import talkhub.com.br.th.Entities.Usuario;
 
 public class ChatProjetoActivity extends AppCompatActivity {
 
     private String idProjeto;
     private String nomeProjeto;
+    private String descProjeto;
     private String idEquipe;
     private String nomeEquipe;
+
 
 
     private ImageButton mButtonEnviarMensagem;
@@ -47,7 +49,7 @@ public class ChatProjetoActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mRefUsuario;
     private DatabaseReference mRefMsg;
-    private List<ChatMensagem> mensagens = new ArrayList<ChatMensagem>();
+    private List<MensagemChat> mensagens = new ArrayList<MensagemChat>();
 
 
     @Override
@@ -74,6 +76,8 @@ public class ChatProjetoActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         idProjeto = bundle.getString("idProjeto");
         nomeProjeto = bundle.getString("nomeProjeto");
+        descProjeto = bundle.getString("descProjeto");
+
         idEquipe = bundle.getString("idEquipe");
         nomeEquipe = bundle.getString("nomeEquipe");
 
@@ -99,6 +103,7 @@ public class ChatProjetoActivity extends AppCompatActivity {
                                 intent.putExtra("nomeEquipe", nomeEquipe);
                                 intent.putExtra("idProjeto", idProjeto);
                                 intent.putExtra("nomeProjeto", nomeProjeto);
+                                intent.putExtra("descProjeto", descProjeto);
                                 startActivity(intent);
 
 
@@ -153,8 +158,8 @@ public class ChatProjetoActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 String mensagem = mEditTextMensagem.getText().toString();
-                ChatMensagem chatMensagem = new ChatMensagem(mensagem, usuario);
-                chatMensagem.novaMensagemProjeto(idProjeto, idEquipe);
+                MensagemChat mensagemChat = new MensagemChat(mensagem, usuario);
+                mensagemChat.novaMensagemProjeto(idProjeto, idEquipe);
                 mEditTextMensagem.setText("");
 
             }
@@ -208,7 +213,7 @@ public class ChatProjetoActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 if(!dataSnapshot.getKey().equals("leitura_usuarios_pendentes")) {
 
-                    ChatMensagem msg = new ChatMensagem();
+                    MensagemChat msg = new MensagemChat();
                     msg.setId(dataSnapshot.getKey());
                     msg.setIdUsuario(dataSnapshot.child("idUsuario").getValue().toString());
                     msg.setNomeUsuario(dataSnapshot.child("nomeUsuario").getValue().toString());
@@ -261,3 +266,4 @@ public class ChatProjetoActivity extends AppCompatActivity {
         return true;
     }
 }
+

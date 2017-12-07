@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import talkhub.com.br.th.Adapter.ChatListAdapter;
-import talkhub.com.br.th.Entities.ChatMensagem;
+import talkhub.com.br.th.Entities.MensagemChat;
 import talkhub.com.br.th.Entities.Usuario;
 
 public class ChatEquipeActivity extends AppCompatActivity {
@@ -38,7 +37,7 @@ public class ChatEquipeActivity extends AppCompatActivity {
     private EditText mEditTextMensagem;
 
     private Usuario usuario = new Usuario();
-    private List<ChatMensagem> mensagens = new ArrayList<ChatMensagem>();
+    private List<MensagemChat> mensagens = new ArrayList<MensagemChat>();
 
 
     @Override
@@ -108,8 +107,8 @@ public class ChatEquipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String mensagem = mEditTextMensagem.getText().toString();
-                ChatMensagem chatMensagem = new ChatMensagem(mensagem, usuario);
-                chatMensagem.novaMensagemEquipe(idEquipe);
+                MensagemChat mensagemChat = new MensagemChat(mensagem, usuario);
+                mensagemChat.novaMensagemEquipe(idEquipe);
                 mEditTextMensagem.setText("");
             }
         });
@@ -164,7 +163,7 @@ public class ChatEquipeActivity extends AppCompatActivity {
                 //O if abaixo é para evitar que o app tente ler o child que contém os usuários que ainda não leram as mensagens
                 //Caso o app tente ler este child, vai dar pau pois ele vai tentar pegar dados de horário por exemplo, e isto não existe neste child
                 if(!dataSnapshot.getKey().equals("leitura_usuarios_pendentes")) {
-                    ChatMensagem msg = new ChatMensagem();
+                    MensagemChat msg = new MensagemChat();
                     msg.setId(dataSnapshot.getKey());
                     msg.setIdUsuario(dataSnapshot.child("idUsuario").getValue().toString());
                     msg.setNomeUsuario(dataSnapshot.child("nomeUsuario").getValue().toString());
